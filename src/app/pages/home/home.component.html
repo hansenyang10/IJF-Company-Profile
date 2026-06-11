@@ -1,0 +1,139 @@
+<section class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <span class="tagline">YOUR TRUSTED TAX & ACCOUNTING PARTNER</span>
+      <h1>Tax & Accounting Solutions for Growing Businesses</h1>
+      <p>Kami membantu perusahaan dan UMKM tetap patuh terhadap regulasi perpajakan, mengelola keuangan dengan efisien, dan siap untuk terus bertumbuh.</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-primary">Jadwalkan Konsultasi &rarr;</a>
+        <a href="#services" class="btn btn-secondary">Lihat Layanan &rarr;</a>
+      </div>
+    </div>
+    <div class="hero-image-box">
+      <img src="assets/team/hero-team.jpeg" alt="Tim Profesional Konsultan Pajak IJF Fintax" loading="eager">
+      <div class="geometric-dots"></div> </div>
+  </div>
+</section>
+
+<section class="stats-ribbon">
+  <div class="container stats-grid">
+   @for (stat of stats(); track stat.label; let last = $last) {
+      <div class="stat-card" [class.has-divider]="!last">
+        <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
+        
+        <div class="stat-info">
+          <h3 [appCountUp]="stat.value">0</h3>
+          <p class="stat-title">{{ stat.label }}</p>
+          <p class="stat-sub">{{ stat.sub }}</p>
+        </div>
+
+      </div>
+    }
+  </div>
+</section>
+
+<section id="services" class="services-section">
+  <div class="container text-center">
+    <span class="section-tag">LAYANAN KAMI</span>
+    <h2>Solusi Lengkap untuk Kebutuhan Pajak & Keuangan Anda</h2>
+    
+    <div class="services-grid">
+      @for (item of services(); track item.id) {
+        <article class="service-card">
+          
+          <div class="card-header">
+            <div class="icon-wrapper">
+              <mat-icon class="icon">{{ item.icon }}</mat-icon>
+            </div>
+            <h3>{{ item.title }}</h3>
+          </div>
+          
+          <p class="card-desc">{{ item.desc }}</p>
+          
+          <a [href]="'/services/' + item.id" class="read-more">Selengkapnya &rarr;</a>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="container about-grid">
+    <div class="about-text-card">
+      <span class="section-tag invert">TENTANG KAMI</span>
+      <h2>Partner Terpercaya untuk Pertumbuhan Bisnis Anda</h2>
+      <p>Ignatius Julyani Fintax adalah firma konsultan pajak dan akuntansi yang berdiri sejak 2016. Kami hadir sebagai mitra strategis bagi perusahaan dalam mengelola finansial secara profesional dan transparan.</p>
+      <a href="/about" class="btn btn-outline-white">Selengkapnya Tentang Kami &rarr;</a>
+    </div>
+    <div class="why-choose-us">
+      <span class="section-tag">MENGAPA MEMILIH KAMI</span>
+      <ul class="features-list">
+        <li><span class="check">&check;</span> <strong>Tim Profesional & Bersertifikasi:</strong> Berpengalaman tinggi di bidangnya.</li>
+        <li><span class="check">&check;</span> <strong>Respon Cepat & Komunikasi Terbuka:</strong> Menjamin kenyamanan klien.</li>
+        <li><span class="check">&check;</span> <strong>Pemahaman Mendalam terhadap Regulasi:</strong> Mengurangi risiko fraud/kesalahan pajak.</li>
+        <li><span class="check">&check;</span> <strong>Solusi Disesuaikan dengan Kebutuhan Bisnis:</strong> Skalabel untuk UMKM hingga korporasi.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="team-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-tag">TIM PROFESIONAL KAMI</span>
+      <h2>Berpengalaman. Bersertifikasi. Berkomitmen.</h2>
+    </div>
+    <div class="team-grid">
+      @for (member of team(); track member.name) {
+        <div class="team-card">
+          <div class="member-img-box">
+            <img [src]="member.img" [alt]="member.name">
+          </div>
+          <div class="team-info">
+            <h3>{{ member.name }}</h3>
+            <p class="role">{{ member.role }}</p>
+            <div class="tags">
+              @for (tag of member.tags; track tag) {
+                <span class="tag-badge">{{ tag }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="insights-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-tag">INSIGHT TERBARU</span>
+        <h2>Update Pajak & Keuangan Terpercaya</h2>
+      </div>
+      <a href="/insights" class="link-all">Lihat Semua Insight &rarr;</a>
+    </div>
+    <div class="insights-grid">
+      @for (blog of insights(); track blog.title) {
+        <article class="blog-card">
+          <div class="blog-img-box">
+            <img [src]="blog.img" [alt]="blog.title">
+          </div>
+          <div class="blog-content">
+            <span class="blog-tag">{{ blog.tag }}</span>
+            <h3>{{ blog.title }}</h3>
+            <p class="date">{{ blog.date }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container cta-box">
+    <h2>Butuh Pendampingan Pajak & Akuntansi yang Tepat?</h2>
+    <p>Konsultasikan kebutuhan bisnis Anda bersama Ignatius Julyani Fintax sekarang juga.</p>
+    <a href="#contact" class="btn btn-accent">Jadwalkan Konsultasi Gratis &rarr;</a>
+  </div>
+</section>

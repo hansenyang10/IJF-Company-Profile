@@ -1,0 +1,525 @@
+// 1. VARIABEL & UTILITY
+$primary-blue: #021a3a;
+$accent-orange: #ff6b00;
+$text-dark: #333333;
+$bg-light: #f8fafc;
+$white: #ffffff;
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-center { text-align: center; }
+
+.section-tag {
+  color: $accent-orange;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-bottom: 10px;
+  
+  &.invert {
+    color: lighten($accent-orange, 15%);
+  }
+}
+
+h2 {
+  font-size: 2.2rem;
+  color: $primary-blue;
+  margin-top: 5px;
+  margin-bottom: 30px;
+  font-weight: 800;
+}
+
+// 2. HERO SECTION
+.hero-section {
+  background-color: $white;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    .tagline, h1, p, .cta-buttons {
+      opacity: 0; // Wajib: Sembunyikan elemen sebelum animasi dimulai agar tidak berkedip
+      animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    // EFEK BERGANTIAN (STAGGERED DELAY)
+    .tagline {
+      animation-delay: 0.2s; // Muncul pertama
+      color: $accent-orange;
+      font-width: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: $primary-blue;
+      line-height: 1.2;
+      margin: 15px 0 20px 0;
+      animation-delay: 0.4s; // Muncul kedua
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      animation-delay: 0.6s; // Muncul ketiga
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      animation-delay: 0.8s; // Tombol muncul terakhir
+    }
+  }
+
+  .hero-image-box {
+    width: 100%;
+    height: 480px;
+    position: relative;
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right center; // Memotong dinding kiri, fokus ke interaksi tim
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+
+// 3. STATS RIBBON
+.stats-ribbon {
+  background-color: #0c1a30; // Warna background biru tua gelap sesuai mockup
+  padding: 35px 0;
+  color: #ffffff;
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // Membagi rata menjadi 4 kolom
+    gap: 24px;
+    align-items: center;
+  }
+
+  .stat-card {
+    display: flex;
+    align-items: flex-start; // Ikon dan konten sejajar dari atas
+    gap: 16px;              // Jarak antara ikon dan blok teks
+    position: relative;
+    width: 100%;
+
+    // PROSES PEMBUATAN GARIS PEMBATAS VERTIKAL
+    // &.has-divider::after {
+    //   content: '';
+    //   position: absolute;
+    //   right: 30px;         // Menggeser garis tepat di tengah antar card
+    //   top: 15%;             // Memotong sedikit area atas agar tinggi garis proporsional
+    //   height: 70%;          // Tinggi garis pembatas
+    //   width: 4px;           // Ketebalan garis pembatas
+    //   background-color: rgba(255, 255, 255, 0.15); // Warna putih tipis transparan
+    // }
+
+    .stat-icon {
+      font-size: 42px;      // Ukuran ikon yang pas dan dominan
+      width: 42px;
+      height: 42px;
+      color: #ff6b00;       // Warna oranye khas identitas Fintax
+      align-items: center;
+    }
+
+    .stat-info {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+        line-height: 1;
+      }
+
+      .stat-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 6px 0 2px 0;
+      }
+
+      .stat-sub {
+        font-size: 0.8rem;
+        color: #a0aec0;    // Warna teks keterangan dibuat sedikit redup/soft
+        margin: 0;
+      }
+    }
+  }
+}
+
+// 4. SERVICES SECTION
+.services-section {
+  padding: 80px 0;
+  background-color: $bg-light;
+
+  .section-tag {
+    color: #ff6b00; // Warna oranye Fintax
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    color: #0c1a30; // Biru tua gelap
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // Pecah jadi 3 kolom rata
+    grid-auto-rows: 1fr;                  // KUNCI UTAMA 1: Memaksa tinggi card baris manapun sama rata!
+    gap: 30px;
+    text-align: left;                     // Kembalikan teks isi card ke kiri agar rapi
+  }
+}
+
+.service-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;               // KUNCI UTAMA 2: Mengaktifkan susunan flex vertikal di dalam card
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(12, 26, 48, 0.08);
+      border-color: rgba(#ff6b00, 0.3);   // Efek hover border oranye tipis halus
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;               // Menyeimbangkan posisi ikon dan teks judul secara vertikal
+      gap: 16px;                         // Jarak horizontal ikon ke judul
+      margin-bottom: 20px;
+
+      .icon-wrapper {
+        background-color: rgba(255, 107, 0, 0.1); // Kotak background oranye transparan halus
+        padding: 10px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .icon {
+          color: #ff6b00;
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      h3 {
+        color: #0c1a30;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+    .card-desc {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0 0 24px 0;
+    }
+
+    .read-more {
+      margin-top: auto;                  // KUNCI UTAMA 3: Menarik paksa link "Selengkapnya" menempel paling bawah
+      color: #ff6b00;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.2s ease;
+
+      &:hover {
+        gap: 8px;                        // Efek interaktif panah bergerak maju sedikit saat di-hover
+      }
+    }
+  }
+
+// 5. ABOUT SECTION (Style Kombinasi Dua Sisi Sesuai Mockup)
+.about-section {
+  padding: 90px 0;
+  background-color: $white;
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .about-text-card {
+    background-color: $primary-blue;
+    color: $white;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba($primary-blue, 0.15);
+
+    h2 { color: $white; }
+    p { line-height: 1.7; color: #e2e8f0; margin-bottom: 30px; }
+  }
+
+  .why-choose-us {
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0 0 0;
+
+      li {
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+        color: $text-dark;
+        display: flex;
+        align-items: flex-start;
+
+        .check {
+          color: $accent-orange;
+          font-weight: bold;
+          margin-right: 15px;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
+
+// 6. TEAM SECTION
+.team-section {
+  padding: 80px 0;
+  background-color: $bg-light;
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // 3 kolom per baris untuk menampung 6 orang
+    gap: 30px;
+    margin-top: 40px;
+  }
+}
+
+.team-card {
+  background-color: $white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+  border: 1px solid #e2e8f0;
+
+  .member-img-box {
+    width: 100%;
+    height: 320px;
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  .team-info {
+    padding: 25px;
+    h3 { color: $primary-blue; margin: 0 0 5px 0; font-size: 1.2rem; }
+    .role { color: $accent-orange; font-weight: 600; margin: 0 0 15px 0; font-size: 0.95rem; }
+    
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      
+      .tag-badge {
+        background-color: #edf2f7;
+        color: #4a5568;
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+// 7. INSIGHTS SECTION
+.insights-section {
+  padding: 85px 0;
+  background-color: $white;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+  }
+
+  .link-all {
+    color: $primary-blue;
+    text-decoration: none;
+    font-weight: 700;
+    &:hover { color: $accent-orange; }
+  }
+
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // 4 kolom berjajar sesuai mockup
+    gap: 20px;
+  }
+}
+
+.blog-card {
+  background: $white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+  border: 1px solid #edf2f7;
+
+  .blog-img-box {
+    height: 180px;
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  .blog-content {
+    padding: 20px;
+    .blog-tag { color: $accent-orange; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    h3 { font-size: 1.05rem; color: $primary-blue; margin: 8px 0 12px 0; line-height: 1.4; height: 44px; overflow: hidden; }
+    .date { font-size: 0.8rem; color: #a0aec0; margin: 0; }
+  }
+}
+
+// 8. CTA BANNER
+.cta-banner {
+  background-color: lighten($primary-blue, 2%);
+  padding: 70px 0;
+  text-align: center;
+  color: $white;
+
+  .cta-box {
+    max-width: 700px;
+    h2 { color: $white; font-size: 2.3rem; margin-bottom: 15px; }
+    p { font-size: 1.1rem; color: #cbd5e0; margin-bottom: 35px; }
+  }
+}
+
+// 9. TOMBOL UTILITY
+.btn {
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  text-align: center;
+
+  &-primary {
+    background-color: $accent-orange;
+    color: $white;
+    &:hover { background-color: darken($accent-orange, 7%); transform: translateY(-2px); }
+  }
+
+  &-secondary {
+    background-color: transparent;
+    color: $primary-blue;
+    border: 1px solid #cbd5e0;
+    &:hover { background-color: #f7fafc; border-color: $primary-blue; }
+  }
+
+  &-accent {
+    background-color: $accent-orange;
+    color: $white;
+    font-size: 1.05rem;
+    box-shadow: 0 10px 20px rgba($accent-orange, 0.2);
+    &:hover { background-color: darken($accent-orange, 7%); transform: translateY(-2px); }
+  }
+
+  &-outline-white {
+    background-color: transparent;
+    color: $white;
+    border: 1px solid rgba($white, 0.4);
+    &:hover { background-color: rgba($white, 0.1); border-color: $white; }
+  }
+}
+
+// 10. GLOBAL RESPONSIVE BREAKPOINTS
+@media (max-width: 992px) {
+  h2 { font-size: 1.8rem; }
+  
+  .hero-section .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    .hero-content h1 { font-size: 2.5rem; }
+    .hero-image-box { height: 350px; order: 2; }
+    .cta-buttons { justify-content: center; }
+  }
+
+  .stats-ribbon .stats-grid {
+    grid-template-columns: repeat(2, 1fr); // Menjadi 2x2 di tablet
+    gap: 25px;
+  }
+
+  .services-section .services-grid {
+    grid-template-columns: repeat(2, 1fr); // Menjadi 2 kolom di tablet
+  }
+
+  .about-section {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-text-card { padding: 35px; }
+  }
+
+  .team-section .team-grid {
+    grid-template-columns: repeat(2, 1fr); // Menjadi 2 kolom di tablet
+  }
+
+  .insights-section .insights-grid {
+    grid-template-columns: repeat(2, 1fr); // Menjadi 2 kolom di tablet
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-ribbon .stats-grid,
+  .services-section .services-grid,
+  .team-section .team-grid,
+  .insights-section .insights-grid {
+    grid-template-columns: 1fr; // Menjadi 1 kolom penuh di handphone
+  }
+  
+  .hero-section .hero-content h1 { font-size: 2rem; }
+  .hero-section .hero-content .cta-buttons { flex-direction: column; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px); // Mulai dari 40px di bawah posisi asli
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    // Kembali ke posisi asli
+  }
+}
