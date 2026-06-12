@@ -1,0 +1,242 @@
+$primary-blue: #021a3a;
+$accent-orange: #ff6b00;
+$white: #ffffff;
+$text-gray: #a0aec0;
+
+.footer {
+  background-color: $primary-blue;
+  color: $white;
+  font-family: 'Inter', sans-serif; // Atau font yang kamu gunakan
+
+  .cta-box {            
+      padding: 10px 0;
+      text-align: center;
+      color: $white;
+      margin: 0 auto;        
+      line-height: 1.2;          
+      h2 { color: $white; font-size: 2.3rem; margin-bottom: 15px; }
+      p { font-size: 1.1rem; color: #cbd5e0; margin-bottom: 35px; }
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    gap: 40px;
+    margin: 20px 60px;
+  }
+
+  .footer-col {
+    .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px; // Jarak antara logo gambar dan teks samping
+        margin-bottom: 25px;
+
+        img {
+        height: 45px; // Sesuaikan tinggi agar proporsional dengan 3 baris tulisan
+        width: auto;
+        object-fit: contain;
+        }
+
+        .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+        font-family: 'Inter', 'Helvetica Neue', sans-serif;
+
+        .brand-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .brand-main {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin: 1px 0;
+        }
+
+        .brand-sub {
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: #a0aec0; // Warna abu-abu soft sesuai gambar info sub-keterangan
+            white-space: nowrap;
+        }
+        }
+    }
+
+    .footer-desc {
+        color: #a0aec0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        max-width: 280px;
+    }
+
+    .footer-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: $white;
+      position: relative;
+    }
+
+    .nav-links-wrapper {
+      display: flex;
+      gap: 30px;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 12px;
+        a {
+          color: $text-gray;
+          text-decoration: none;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
+
+          &:hover {
+            color: $white;
+            padding-left: 5px;
+          }
+        }
+      }
+    }
+
+    .footer-contact {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        color: $text-gray;
+        font-size: 0.9rem;
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+          color: $white;
+        }
+      }
+    }
+   }
+
+  // Bagian Bawah Footer
+  .footer-bottom {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: rgba($text-gray, 0.7);
+
+    .footer-legal {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-right: 10px;
+
+        a {
+          color: $white;
+          font-size: 1.1rem;
+          opacity: 0.6;
+          transition: 0.3s;
+          &:hover { opacity: 1; color: $accent-orange; }
+        }
+      }
+
+      .legal-link {
+        color: rgba($text-gray, 0.7);
+        text-decoration: none;
+        &:hover { color: $white; }
+      }
+    }
+  }
+}
+
+// ==========================================
+// 8. UTILITY BUTTONS
+// ==========================================
+.btn {
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid transparent;
+
+  &-primary {
+    background-color: $accent-orange;
+    color: $white;
+    &:hover { background-color: darken($accent-orange, 7%); transform: translateY(-2px); }
+  }
+
+  &-secondary {
+    background-color: transparent;
+    color: $primary-blue;
+    border: 1px solid #cbd5e0;
+    &:hover { background-color: #f7fafc; border-color: $primary-blue; }
+  }
+
+  &-accent {
+    background-color: $accent-orange;
+    color: $white;
+    font-size: 1.05rem;
+    box-shadow: 0 10px 20px rgba($accent-orange, 0.2);
+    &:hover { background-color: darken($accent-orange, 7%); transform: translateY(-2px); }
+  }
+
+  &-outline-white {
+    background-color: transparent;
+    color: $white;
+    border: 1px solid rgba($white, 0.4);
+    &:hover { background-color: rgba($white, 0.1); border-color: $white; }
+  }
+}
+
+// Responsive
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding: 60px 0 30px 0;
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      .footer-legal {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+    .nav-links-wrapper {
+      justify-content: space-between;
+    }
+  }
+}

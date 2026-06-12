@@ -1,4 +1,6 @@
+// ==========================================
 // 1. VARIABEL & UTILITY
+// ==========================================
 $primary-blue: #021a3a;
 $accent-orange: #ff6b00;
 $text-dark: #333333;
@@ -20,6 +22,7 @@ $white: #ffffff;
   font-size: 0.85rem;
   display: inline-block;
   margin-bottom: 10px;
+  text-transform: uppercase;
   
   &.invert {
     color: lighten($accent-orange, 15%);
@@ -34,7 +37,9 @@ h2 {
   font-weight: 800;
 }
 
-// 2. HERO SECTION
+// ==========================================
+// 2. HERO SECTION (PROPORSI BARU 55% : 45%)
+// ==========================================
 .hero-section {
   background-color: $white;
   padding: 80px 0;
@@ -43,104 +48,211 @@ h2 {
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 50px;
-    align-items: center;
+    grid-template-columns: 55% 45%; // FIX: Teks mendapat 55% (luas), Gambar mengecil ke 45%
+    align-items: center;           // Menjaga teks dan gambar sejajar proporsional di tengah
+    width: 100%;
+    gap: 50px;                     // Jarak dirapatkan agar lebih padat
   }
 
   .hero-content {
+    grid-column: 1;
     position: relative;
-    z-index: 2;
-    .tagline, h1, p, .cta-buttons {
-      opacity: 0; // Wajib: Sembunyikan elemen sebelum animasi dimulai agar tidak berkedip
+    z-index: 10;
+    margin-right: -60px;           // FIX: Efek tumpukan dikurangi agar pas dengan grid baru
+    background: transparent;
+
+    .tagline, h1, p, .cta-buttons, .used-by {
+      opacity: 0; 
       animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
 
-    // EFEK BERGANTIAN (STAGGERED DELAY)
     .tagline {
-      animation-delay: 0.2s; // Muncul pertama
+      animation-delay: 0.2s; 
       color: $accent-orange;
-      font-width: 700;
+      font-weight: 700;
       font-size: 0.9rem;
       letter-spacing: 1.5px;
     }
 
     h1 {
-      font-size: 3.5rem;
+      font-size: 3rem; 
       color: $primary-blue;
       line-height: 1.2;
       margin: 15px 0 20px 0;
-      animation-delay: 0.4s; // Muncul kedua
+      animation-delay: 0.4s; 
     }
 
     p {
       font-size: 1.1rem;
+      line-height: 1.7;
       color: #555;
-      line-height: 1.6;
       margin-bottom: 30px;
-      animation-delay: 0.6s; // Muncul ketiga
+      animation-delay: 0.6s; 
     }
 
     .cta-buttons {
       display: flex;
       gap: 15px;
-      animation-delay: 0.8s; // Tombol muncul terakhir
+      animation-delay: 0.8s; 
+    }
+
+    // --- INTEGRASI CAROUSEL SLIDER LOGO ---
+    .used-by {
+      animation-delay: 1s;
+      margin-top: 50px;
+      width: 100%;
+
+      p {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #718096;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      .slider-viewport {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .slider-track {
+        display: flex;
+        width: 100%;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      .slider-page {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-shrink: 0;
+        gap: 10px;
+      }
+
+      .logo-item {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          width: auto;
+          max-width: 110px;
+          object-fit: contain;
+          filter: grayscale(100%);
+          opacity: 0.55;
+          transition: all 0.3s ease;
+
+          &:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+          }
+        }
+      }
+
+      // Pagination Dots (Penanda Halaman)
+      .pagination-dots {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 6px;
+        margin-top: 15px;
+
+        .dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background-color: #cbd5e0;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          transition: all 0.3s ease;
+
+          &.active {
+            background-color: $primary-blue;
+            width: 20px; // Efek memanjang lonjong saat aktif
+            border-radius: 4px;
+          }
+        }
+      }
     }
   }
 
   .hero-image-box {
+    grid-column: 2;
     width: 100%;
-    height: 480px;
+    height: 440px;                 // FIX: Batasi tinggi maksimal agar tidak raksasa
+    min-height: auto; 
     position: relative;
+    z-index: 1;
     animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: right center; // Memotong dinding kiri, fokus ke interaksi tim
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      object-position: center center; 
+      border-radius: 16px;         // Rounded penuh di semua sudut agar lebih rapi
+    }
+
+    .geometric-dots {
+      position: absolute;
+      bottom: -25px;
+      right: 30px;
+      width: 90px;
+      height: 90px;
+      background-image: radial-gradient($accent-orange 20%, transparent 20%);
+      background-size: 10px 10px;
+      opacity: 0.25;
+      z-index: 3; 
+      pointer-events: none;
+    }
+
+    // Gradasi transparan diatur ulang agar luntur halus di sisi kiri gambar yang mengecil
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 35%; 
+      height: 100%;
+      background: linear-gradient(to right, $white 0%, rgba($white, 0) 100%);
+      z-index: 2;
+      pointer-events: none;
     }
   }
 }
 
+// ==========================================
 // 3. STATS RIBBON
+// ==========================================
 .stats-ribbon {
-  background-color: #0c1a30; // Warna background biru tua gelap sesuai mockup
+  background-color: #0c1a30; 
   padding: 35px 0;
   color: #ffffff;
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); // Membagi rata menjadi 4 kolom
+    grid-template-columns: repeat(4, 1fr); 
     gap: 24px;
     align-items: center;
   }
 
   .stat-card {
     display: flex;
-    align-items: flex-start; // Ikon dan konten sejajar dari atas
-    gap: 16px;              // Jarak antara ikon dan blok teks
+    align-items: flex-start; 
+    gap: 16px;              
     position: relative;
     width: 100%;
 
-    // PROSES PEMBUATAN GARIS PEMBATAS VERTIKAL
-    // &.has-divider::after {
-    //   content: '';
-    //   position: absolute;
-    //   right: 30px;         // Menggeser garis tepat di tengah antar card
-    //   top: 15%;             // Memotong sedikit area atas agar tinggi garis proporsional
-    //   height: 70%;          // Tinggi garis pembatas
-    //   width: 4px;           // Ketebalan garis pembatas
-    //   background-color: rgba(255, 255, 255, 0.15); // Warna putih tipis transparan
-    // }
-
     .stat-icon {
-      font-size: 42px;      // Ukuran ikon yang pas dan dominan
+      font-size: 42px;      
       width: 42px;
       height: 42px;
-      color: #ff6b00;       // Warna oranye khas identitas Fintax
+      color: #ff6b00;       
       align-items: center;
     }
 
@@ -165,184 +277,383 @@ h2 {
 
       .stat-sub {
         font-size: 0.8rem;
-        color: #a0aec0;    // Warna teks keterangan dibuat sedikit redup/soft
+        color: #a0aec0;    
         margin: 0;
       }
     }
   }
 }
 
+// ==========================================
 // 4. SERVICES SECTION
+// ==========================================
 .services-section {
   padding: 80px 0;
   background-color: $bg-light;
 
-  .section-tag {
-    color: #ff6b00; // Warna oranye Fintax
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 12px;
-  }
-
   h2 {
-    color: #0c1a30; // Biru tua gelap
+    color: #0c1a30; 
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 50px;
+    line-height: 1.2;
   }
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); // Pecah jadi 3 kolom rata
-    grid-auto-rows: 1fr;                  // KUNCI UTAMA 1: Memaksa tinggi card baris manapun sama rata!
+    grid-template-columns: repeat(3, 1fr); 
+    grid-auto-rows: 1fr;                                                  
     gap: 30px;
-    text-align: left;                     // Kembalikan teks isi card ke kiri agar rapi
+    text-align: left;                                                     
   }
 }
 
 .service-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;               
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(12, 26, 48, 0.08);
+    border-color: rgba(#ff6b00, 0.3);   
+  }
+
+  .card-header {
     display: flex;
-    flex-direction: column;               // KUNCI UTAMA 2: Mengaktifkan susunan flex vertikal di dalam card
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-items: center;               
+    gap: 16px;                                                                
+    margin-bottom: 20px;
+
+    .icon-wrapper {
+      background-color: rgba(255, 107, 0, 0.1); 
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .icon {
+        color: #ff6b00;
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    h3 {
+      color: #0c1a30;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .card-desc {
+    color: #4a5568;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+  }
+
+  .read-more {
+    margin-top: auto;                  
+    color: #ff6b00;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s ease;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 20px rgba(12, 26, 48, 0.08);
-      border-color: rgba(#ff6b00, 0.3);   // Efek hover border oranye tipis halus
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;               // Menyeimbangkan posisi ikon dan teks judul secara vertikal
-      gap: 16px;                         // Jarak horizontal ikon ke judul
-      margin-bottom: 20px;
-
-      .icon-wrapper {
-        background-color: rgba(255, 107, 0, 0.1); // Kotak background oranye transparan halus
-        padding: 10px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .icon {
-          color: #ff6b00;
-          font-size: 28px;
-          width: 28px;
-          height: 28px;
-        }
-      }
-
-      h3 {
-        color: #0c1a30;
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin: 0;
-      }
-    }
-
-    .card-desc {
-      color: #4a5568;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin: 0 0 24px 0;
-    }
-
-    .read-more {
-      margin-top: auto;                  // KUNCI UTAMA 3: Menarik paksa link "Selengkapnya" menempel paling bawah
-      color: #ff6b00;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: gap 0.2s ease;
-
-      &:hover {
-        gap: 8px;                        // Efek interaktif panah bergerak maju sedikit saat di-hover
-      }
+      gap: 8px;                                                                
     }
   }
+}
 
-// 5. ABOUT SECTION (Style Kombinasi Dua Sisi Sesuai Mockup)
+// ==========================================
+// 5. ABOUT SECTION
+// ==========================================
 .about-section {
-  padding: 90px 0;
   background-color: $white;
+  overflow: hidden;
+  width: 100%;
 
-  .about-grid {
+  .about-master-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 50px;
-    align-items: center;
+    grid-template-columns: 1fr 1fr; 
+    width: 100%;
   }
 
-  .about-text-card {
-    background-color: $primary-blue;
-    color: $white;
-    padding: 50px;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba($primary-blue, 0.15);
-
-    h2 { color: $white; }
-    p { line-height: 1.7; color: #e2e8f0; margin-bottom: 30px; }
+  .about-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    align-items: stretch;
   }
 
-  .why-choose-us {
-    .features-list {
-      list-style: none;
-      padding: 0;
-      margin: 25px 0 0 0;
+  // --- SISI KIRI (TENTANG KAMI) ---
+  .left-side {
+    .about-text-card {
+      background-color: #0c1a30; 
+      color: $white;
+      padding: 60px 40px 60px 8%; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-      li {
+      h2 { 
+        color: $white; 
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-top: 10px;
         margin-bottom: 20px;
-        font-size: 1.05rem;
-        color: $text-dark;
-        display: flex;
-        align-items: flex-start;
+      }
+      
+      p { 
+        color: #cbd5e0; 
+        font-size: 0.95rem;
+        line-height: 1.6; 
+        margin-bottom: 30px; 
+      }
 
-        .check {
-          color: $accent-orange;
-          font-weight: bold;
-          margin-right: 15px;
-          font-size: 1.2rem;
+      .btn-outline-white {
+        align-self: flex-start;
+        border: 1px solid rgba($white, 0.3);
+        color: $white;
+        font-size: 0.85rem;
+        padding: 12px 24px;
+        
+        &:hover {
+          background-color: rgba($white, 0.1);
+          border-color: $white;
         }
+      }
+    }
+  }
+
+  // --- SISI KANAN ---
+  .right-side {
+    background-color: $white;
+    display: grid;                  
+    grid-template-columns: 30% 70%; 
+    align-items: stretch;
+
+    .why-choose-us {
+      grid-column: 1;
+      align-self: center;           
+      padding: 60px 0 60px 40px;    
+      position: relative;
+      z-index: 10;                  
+      margin-right: -180px;         
+      background: transparent;
+
+      .section-tag {
+        margin-bottom: 20px;
+      }
+
+      .features-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 16px;
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: #1a202c;
+
+          .check {
+            color: $accent-orange;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .about-image-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      object-position: 91% center;
+    }
+
+    &.team-img {
+      grid-column: 2; 
+      min-height: 450px;            
+      z-index: 1;
+
+      img {
+        object-position: 4% center; 
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50%; 
+        height: 100%;
+        background: linear-gradient(to right, $white 15%, rgba($white, 0) 100%);
+        z-index: 2;
+        pointer-events: none;
       }
     }
   }
 }
 
-// 6. TEAM SECTION
+// ==========================================
+// 6. TEAM SECTION (CAROUSEL & DRAG RE-ARCHITECT)
+// ==========================================
 .team-section {
   padding: 80px 0;
   background-color: $bg-light;
 
+  // Header Navigasi Sisi Kanan Atas (Sesuai Gambar)
+  .team-header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 40px;
+    width: 100%;
+
+    .header-text-center {
+      text-align: center;
+      h2 { margin-bottom: 0; }
+    }
+
+    .team-nav-buttons {
+      position: absolute;
+      right: 0;
+      bottom: 5px;
+      display: flex;
+      gap: 10px;
+
+      .nav-btn {
+        background: $white;
+        border: 1px solid #e2e8f0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #718096;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        transition: all 0.2s ease;
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+
+        &:hover:not(:disabled):not(.disabled) {
+          background: $primary-blue;
+          color: $white;
+          border-color: $primary-blue;
+        }
+
+        &:disabled, &.disabled {
+          opacity: 0.35;
+          cursor: not-allowed;
+          pointer-events: none; // Mematikan click event & hover effect
+          background: #edf2f7;
+          color: #a0aec0;
+          border-color: #e2e8f0;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  // Viewport Slider Container
+  .team-viewport {
+    width: 100%;
+    overflow: hidden; 
+    position: relative;
+    cursor: grab;
+    
+    &:active { cursor: grabbing; }
+  }
+
+  // Dynamic Slider Track Engine
+  .team-track {
+    display: flex;
+    margin-left: -12px;
+    margin-right: -12px;
+    transform: translateX(calc(-1 * var(--current-index) * 25% + var(--drag-offset, 0px)));
+
+    @media (max-width: 1200px) {
+      transform: translateX(calc(-1 * var(--current-index) * 33.3333% + var(--drag-offset, 0px)));
+    }
+    @media (max-width: 992px) {
+      transform: translateX(calc(-1 * var(--current-index) * 50% + var(--drag-offset, 0px)));
+    }
+    @media (max-width: 576px) {
+      transform: translateX(calc(-1 * var(--current-index) * 100% + var(--drag-offset, 0px)));
+    }
+  }
+
+  // Responsive Carousel Grid Item
+  .team-slide-item {
+    flex: 0 0 25%; 
+    padding: 0 12px; 
+    box-sizing: border-box;
+    user-select: none;
+
+    @media (max-width: 1200px) { flex: 0 0 33.3333%; }
+    @media (max-width: 992px) { flex: 0 0 50%; }
+    @media (max-width: 576px) { flex: 0 0 100%; }
+  }
+
+  // CSS Bawaan Anda Tetap Dipertahankan Penuh
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); // 3 kolom per baris untuk menampung 6 orang
+    grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
     margin-top: 40px;
   }
 }
 
+// Desain Existing Team Card Anda (Ditambah Proteksi Drag Glitch)
 .team-card {
   background-color: $white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.03);
   border: 1px solid #e2e8f0;
+  width: 100%;
 
   .member-img-box {
     width: 100%;
     height: 320px;
-    img { width: 100%; height: 100%; object-fit: cover; }
+    img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      pointer-events: none; // Proteksi agar tidak terseleksi biru pas di-drag
+      user-select: none;
+    }
   }
 
   .team-info {
@@ -366,7 +677,9 @@ h2 {
   }
 }
 
+// ==========================================
 // 7. INSIGHTS SECTION
+// ==========================================
 .insights-section {
   padding: 85px 0;
   background-color: $white;
@@ -387,7 +700,7 @@ h2 {
 
   .insights-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); // 4 kolom berjajar sesuai mockup
+    grid-template-columns: repeat(4, 1fr); 
     gap: 20px;
   }
 }
@@ -412,21 +725,9 @@ h2 {
   }
 }
 
-// 8. CTA BANNER
-.cta-banner {
-  background-color: lighten($primary-blue, 2%);
-  padding: 70px 0;
-  text-align: center;
-  color: $white;
-
-  .cta-box {
-    max-width: 700px;
-    h2 { color: $white; font-size: 2.3rem; margin-bottom: 15px; }
-    p { font-size: 1.1rem; color: #cbd5e0; margin-bottom: 35px; }
-  }
-}
-
-// 9. TOMBOL UTILITY
+// ==========================================
+// 8. UTILITY BUTTONS
+// ==========================================
 .btn {
   padding: 14px 28px;
   border-radius: 6px;
@@ -436,6 +737,7 @@ h2 {
   transition: all 0.2s ease-in-out;
   display: inline-block;
   text-align: center;
+  border: 1px solid transparent;
 
   &-primary {
     background-color: $accent-orange;
@@ -466,60 +768,110 @@ h2 {
   }
 }
 
-// 10. GLOBAL RESPONSIVE BREAKPOINTS
+// ==========================================
+// 10. CLEAN RESPONSIVE SYSTEM (DESKTOP-FIRST)
+// ==========================================
+@media (max-width: 1200px) {
+  .about-section .left-side .about-text-card {
+    padding-left: 40px; 
+  }
+}
+
 @media (max-width: 992px) {
   h2 { font-size: 1.8rem; }
-  
-  .hero-section .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-    .hero-content h1 { font-size: 2.5rem; }
-    .hero-image-box { height: 350px; order: 2; }
-    .cta-buttons { justify-content: center; }
-  }
 
-  .stats-ribbon .stats-grid {
-    grid-template-columns: repeat(2, 1fr); // Menjadi 2x2 di tablet
-    gap: 25px;
-  }
+  .stats-ribbon .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+  .services-section .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-section .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .insights-section .insights-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .services-section .services-grid {
-    grid-template-columns: repeat(2, 1fr); // Menjadi 2 kolom di tablet
+  .hero-section {
+    padding: 60px 0;
+    .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+    .hero-content {
+      margin-right: 0; text-align: center;
+      .cta-buttons { justify-content: center; }
+      .used-by {
+        .logo-item img { max-width: 95px; }
+        .pagination-dots { justify-content: center; }
+      }
+    }
+    .hero-image-box {
+      height: 340px;
+      &::before {
+        width: 100%; height: 50%;
+        background: linear-gradient(to bottom, $white 10%, rgba($white, 0) 100%);
+      }
+    }
   }
 
   .about-section {
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .about-text-card { padding: 35px; }
-  }
-
-  .team-section .team-grid {
-    grid-template-columns: repeat(2, 1fr); // Menjadi 2 kolom di tablet
-  }
-
-  .insights-section .insights-grid {
-    grid-template-columns: repeat(2, 1fr); // Menjadi 2 kolom di tablet
+    .about-master-grid { grid-template-columns: 1fr; }
+    .about-block { grid-template-columns: 1fr; }
+    .right-side {
+      grid-template-columns: 1fr;
+      .why-choose-us { margin-right: 0; padding: 40px 20px; }
+    }
+    .about-image-box.team-img {
+      height: 320px;
+      &::before {
+        width: 100%; height: 50%;
+        background: linear-gradient(to bottom, $white 10%, rgba($white, 0) 100%);
+      }
+    }
   }
 }
 
 @media (max-width: 576px) {
+  h2 { font-size: 1.6rem; margin-bottom: 25px; }
+
   .stats-ribbon .stats-grid,
   .services-section .services-grid,
   .team-section .team-grid,
   .insights-section .insights-grid {
-    grid-template-columns: 1fr; // Menjadi 1 kolom penuh di handphone
+    grid-template-columns: 1fr; 
   }
   
-  .hero-section .hero-content h1 { font-size: 2rem; }
-  .hero-section .hero-content .cta-buttons { flex-direction: column; }
+  .hero-section {
+    padding: 40px 0;
+    .hero-content {
+      padding: 0 10px;
+      h1 { font-size: 2rem; }
+      .cta-buttons { flex-direction: column; gap: 12px; }
+      
+      .used-by {
+        .slider-page { gap: 10px; justify-content: space-around; }
+        .logo-item img { max-width: 80px; } 
+      }
+    }
+    .hero-image-box { height: 260px; .geometric-dots { display: none; } }
+  }
+
+  .about-section .left-side .about-text-card { padding: 45px 20px; }
+  
+  .insights-section .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .cta-banner {
+    padding: 50px 0;
+    .cta-box { h2 { font-size: 1.7rem; } p { font-size: 0.95rem; } }
+  }
 }
 
+// ==========================================
+// 11. ANIMATIONS
+// ==========================================
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(40px); // Mulai dari 40px di bawah posisi asli
+    transform: translateY(40px); 
   }
   to {
     opacity: 1;
-    transform: translateY(0);    // Kembali ke posisi asli
+    transform: translateY(0);    
   }
 }

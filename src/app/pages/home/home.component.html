@@ -8,6 +8,45 @@
         <a href="#contact" class="btn btn-primary">Jadwalkan Konsultasi &rarr;</a>
         <a href="#services" class="btn btn-secondary">Lihat Layanan &rarr;</a>
       </div>
+      <div class="used-by">
+        <p>Dipercaya oleh berbagai perusahaan</p>
+        
+        <div class="slider-viewport" 
+            (mousedown)="onCompanyDragStart($event)"
+            (mousemove)="onCompanyDragMove($event)"
+            (mouseup)="onCompanyDragEnd()"
+            (mouseleave)="onCompanyDragEnd()"
+            (touchstart)="onCompanyDragStart($event)"
+            (touchmove)="onCompanyDragMove($event)"
+            (touchend)="onCompanyDragEnd()">
+            
+          <div class="slider-track" 
+              [style.transform]="'translateX(calc(-' + (currentPage() * 100) + '% + ' + companyDragOffset() + 'px))'"
+              [style.transition]="isCompanyDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'">
+            
+            @for (page of companyPages; track $index) {
+              <div class="slider-page">
+                @for (logo of page.logos; track logo.name) {
+                  <div class="logo-item">
+                    <img [src]="logo.src" [alt]="logo.name" draggable="false">
+                  </div>
+                }
+              </div>
+            }
+
+          </div>
+        </div>
+
+        <div class="pagination-dots">
+          @for (page of companyPages; track $index) {
+            <button 
+              class="dot" 
+              [class.active]="$index === currentPage()"
+              (click)="goToPage($index)">
+            </button>
+          }
+        </div>
+      </div>
     </div>
     <div class="hero-image-box">
       <img src="assets/team/hero-team.jpeg" alt="Tim Profesional Konsultan Pajak IJF Fintax" loading="eager">
@@ -32,14 +71,14 @@
   </div>
 </section>
 
-<section id="services" class="services-section">
+<section id="services" class="services-section" appFadeIn>
   <div class="container text-center">
     <span class="section-tag">LAYANAN KAMI</span>
     <h2>Solusi Lengkap untuk Kebutuhan Pajak & Keuangan Anda</h2>
     
     <div class="services-grid">
-      @for (item of services(); track item.id) {
-        <article class="service-card">
+      @for (item of services(); track item.id; let i = $index) {
+        <article class="service-card" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
           
           <div class="card-header">
             <div class="icon-wrapper">
@@ -57,54 +96,99 @@
   </div>
 </section>
 
-<section class="about-section">
-  <div class="container about-grid">
-    <div class="about-text-card">
-      <span class="section-tag invert">TENTANG KAMI</span>
-      <h2>Partner Terpercaya untuk Pertumbuhan Bisnis Anda</h2>
-      <p>Ignatius Julyani Fintax adalah firma konsultan pajak dan akuntansi yang berdiri sejak 2016. Kami hadir sebagai mitra strategis bagi perusahaan dalam mengelola finansial secara profesional dan transparan.</p>
-      <a href="/about" class="btn btn-outline-white">Selengkapnya Tentang Kami &rarr;</a>
+<section class="about-section" appFadeIn>
+  <div class="about-master-grid">
+    
+    <div class="about-block left-side">
+      <div class="about-text-card">
+        <span class="section-tag invert">TENTANG KAMI</span>
+        <h2>Partner Terpercaya untuk Pertumbuhan Bisnis Anda</h2>
+        <p>Ignatius Julyani Fintax adalah firma konsultan pajak dan akuntansi yang berdiri sejak 2016. Kami hadir sebagai mitra strategis bagi perusahaan dalam mengelola finansial secara profesional dan transparan.</p>
+        <a href="/about" class="btn btn-outline-white">Selengkapnya Tentang Kami &rarr;</a>
+      </div>
+      <div class="about-image-box building-img">
+        <img src="assets/building.jpg" alt="Fintax Building & Logo">
+      </div>
     </div>
-    <div class="why-choose-us">
-      <span class="section-tag">MENGAPA MEMILIH KAMI</span>
-      <ul class="features-list">
-        <li><span class="check">&check;</span> <strong>Tim Profesional & Bersertifikasi:</strong> Berpengalaman tinggi di bidangnya.</li>
-        <li><span class="check">&check;</span> <strong>Respon Cepat & Komunikasi Terbuka:</strong> Menjamin kenyamanan klien.</li>
-        <li><span class="check">&check;</span> <strong>Pemahaman Mendalam terhadap Regulasi:</strong> Mengurangi risiko fraud/kesalahan pajak.</li>
-        <li><span class="check">&check;</span> <strong>Solusi Disesuaikan dengan Kebutuhan Bisnis:</strong> Skalabel untuk UMKM hingga korporasi.</li>
-      </ul>
+    
+    <div class="about-block right-side">
+      <div class="why-choose-us">
+        <span class="section-tag">MENGAPA MEMILIH KAMI</span>
+        <ul class="features-list">
+          <li><span class="check">&#10003;</span> <span>Tim Profesional & Bersertifikasi</span></li>
+          <li><span class="check">&#10003;</span> <span>Respon Cepat & Komunikasi Terbuka</span></li>
+          <li><span class="check">&#10003;</span> <span>Pemahaman Mendalam terhadap Regulasi</span></li>
+          <li><span class="check">&#10003;</span> <span>Solusi Disesuaikan dengan Kebutuhan Bisnis</span></li>
+          <li><span class="check">&#10003;</span> <span>Kerahasiaan Data Klien Terjamin</span></li>
+          <li><span class="check">&#10003;</span> <span>Pendampingan End-to-End</span></li>
+        </ul>
+      </div>
+      <div class="about-image-box team-img">
+        <img src="assets/team/about-team.jpeg" alt="Fintax Team Meeting">
+      </div>
     </div>
+
   </div>
 </section>
 
-<section class="team-section">
+<section class="team-section" appFadeIn>
   <div class="container">
-    <div class="text-center">
-      <span class="section-tag">TIM PROFESIONAL KAMI</span>
-      <h2>Berpengalaman. Bersertifikasi. Berkomitmen.</h2>
+    
+    <div class="team-header-container">
+      <div class="header-text-center">
+        <span class="section-tag">TIM PROFESIONAL KAMI</span>
+        <h2>Berpengalaman. Bersertifikasi. Berkomitmen.</h2>
+      </div>
+      <div class="team-nav-buttons">
+        <button class="nav-btn" (click)="prevTeam()" [disabled]="currentTeamIndex() === 0">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button class="nav-btn" (click)="nextTeam()" [disabled]="currentTeamIndex() >= maxTeamIndex()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
     </div>
-    <div class="team-grid">
-      @for (member of team(); track member.name) {
-        <div class="team-card">
-          <div class="member-img-box">
-            <img [src]="member.img" [alt]="member.name">
-          </div>
-          <div class="team-info">
-            <h3>{{ member.name }}</h3>
-            <p class="role">{{ member.role }}</p>
-            <div class="tags">
-              @for (tag of member.tags; track tag) {
-                <span class="tag-badge">{{ tag }}</span>
-              }
+
+    <div class="team-viewport"
+         (mousedown)="onTeamDragStart($event)"
+         (mousemove)="onTeamDragMove($event)"
+         (mouseup)="onTeamDragEnd()"
+         (mouseleave)="onTeamDragEnd()"
+         (touchstart)="onTeamDragStart($event)"
+         (touchmove)="onTeamDragMove($event)"
+         (touchend)="onTeamDragEnd()">
+         
+      <div class="team-track"
+           [style.--current-index]="currentTeamIndex()"
+           [style.--drag-offset.px]="teamDragOffset()"
+           [style.transition]="isTeamDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'">
+        
+        @for (member of team(); track member.name; let i = $index) {
+          <div class="team-slide-item" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
+            <div class="team-card">
+              <div class="member-img-box">
+                <img [src]="member.img" [alt]="member.name" draggable="false">
+              </div>
+              <div class="team-info">
+                <h3>{{ member.name }}</h3>
+                <p class="role">{{ member.role }}</p>
+                <div class="tags">
+                  @for (tag of member.tags; track tag) {
+                    <span class="tag-badge">{{ tag }}</span>
+                  }
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      }
+        }
+
+      </div>
     </div>
+
   </div>
 </section>
 
-<section class="insights-section">
+<section class="insights-section" appFadeIn>
   <div class="container">
     <div class="section-header">
       <div>
@@ -114,8 +198,8 @@
       <a href="/insights" class="link-all">Lihat Semua Insight &rarr;</a>
     </div>
     <div class="insights-grid">
-      @for (blog of insights(); track blog.title) {
-        <article class="blog-card">
+      @for (blog of insights(); track blog.title; let i = $index) {
+        <article class="blog-card" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
           <div class="blog-img-box">
             <img [src]="blog.img" [alt]="blog.title">
           </div>
@@ -127,13 +211,5 @@
         </article>
       }
     </div>
-  </div>
-</section>
-
-<section class="cta-banner">
-  <div class="container cta-box">
-    <h2>Butuh Pendampingan Pajak & Akuntansi yang Tepat?</h2>
-    <p>Konsultasikan kebutuhan bisnis Anda bersama Ignatius Julyani Fintax sekarang juga.</p>
-    <a href="#contact" class="btn btn-accent">Jadwalkan Konsultasi Gratis &rarr;</a>
   </div>
 </section>

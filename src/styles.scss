@@ -36,4 +36,18 @@ body {
   margin: 0;
   height: 100%;
 }
+
+/* Global Fade-In Effect */
+[appFadeIn] {
+  opacity: 0 !important; 
+  transform: translateY(30px) !important;
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  will-change: opacity, transform !important;
+}
+
+[appFadeIn].fade-in-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
 /* You can add global styles to this file, and also import other style files */
