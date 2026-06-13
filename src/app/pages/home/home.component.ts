@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, OnDestroy, signal, computed, HostListener } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SeoService } from '../../shared/services/seo.services';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,7 +8,7 @@ import { FadeInDirective } from '../../shared/directives/fade-in.directive';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CountUpDirective, MatIconModule, FadeInDirective],
+  imports: [RouterLink, CountUpDirective, MatIconModule, FadeInDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

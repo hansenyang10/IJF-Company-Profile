@@ -1,1 +1,132 @@
-<p>career works!</p>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <nav class="breadcrumb">
+      <a routerLink="/">Beranda</a>
+      <span class="sep">/</span>
+      <span class="current">Karir</span>
+    </nav>
+    <h1>Bergabunglah dengan Tim Kami</h1>
+    <p class="hero-subtitle">Bangun karir impian Anda bersama tim profesional yang berdedikasi, inovatif, dan terus berkembang.</p>
+  </div>
+</section>
+
+<!-- CULTURE STATEMENT -->
+<section class="culture-section" appFadeIn>
+  <div class="container culture-grid">
+    <div class="culture-content">
+      <span class="section-tag">BUDAYA KERJA KAMI</span>
+      <h2>Tempat Tumbuh, Belajar, dan Memberikan Dampak</h2>
+      <p>Di IJF Fintax, kami percaya bahwa tim yang hebat adalah fondasi layanan yang luar biasa. Kami membangun lingkungan kerja yang mendukung pertumbuhan pribadi dan profesional setiap anggota tim.</p>
+      <p>Dari konsultan junior hingga senior partner, setiap orang di sini memiliki peran penting dan suara yang didengar. Kami bekerja keras, tapi kami juga merayakan setiap pencapaian bersama.</p>
+    </div>
+    <div class="culture-image">
+      <img src="assets/team/about-team.jpeg" alt="Tim IJF Fintax">
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">APA YANG KAMI TAWARKAN</span>
+      <h2>Lebih dari Sekadar Pekerjaan</h2>
+    </div>
+    <div class="benefits-grid">
+      @for (ben of benefits; track ben.title; let i = $index) {
+        <div class="benefit-card" appFadeIn [style.transition-delay]="(i * 0.08) + 's'">
+          <div class="ben-icon"><mat-icon>{{ ben.icon }}</mat-icon></div>
+          <h3>{{ ben.title }}</h3>
+          <p>{{ ben.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- OPEN POSITIONS -->
+<section class="jobs-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">POSISI YANG TERSEDIA</span>
+      <h2>Temukan Peluang Karir Anda</h2>
+    </div>
+    <div class="jobs-list">
+      @for (job of jobs; track job.title; let i = $index) {
+        <div class="job-item" [class.open]="openJobIndex() === i">
+          <button class="job-header" (click)="toggleJob(i)">
+            <div class="job-title-block">
+              <h3>{{ job.title }}</h3>
+              <div class="job-badges">
+                <span class="badge dept">{{ job.dept }}</span>
+                <span class="badge type">{{ job.type }}</span>
+                <span class="badge location"><mat-icon>location_on</mat-icon>{{ job.location }}</span>
+              </div>
+            </div>
+            <div class="job-toggle">
+              <span class="exp-label">{{ job.experience }}</span>
+              <mat-icon>{{ openJobIndex() === i ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </div>
+          </button>
+          <div class="job-details">
+            <div class="job-details-inner">
+              <div class="detail-col">
+                <h4><mat-icon>task_alt</mat-icon>Tanggung Jawab</h4>
+                <ul>
+                  @for (r of job.responsibilities; track r) {
+                    <li>{{ r }}</li>
+                  }
+                </ul>
+              </div>
+              <div class="detail-col">
+                <h4><mat-icon>checklist</mat-icon>Persyaratan</h4>
+                <ul>
+                  @for (r of job.requirements; track r) {
+                    <li>{{ r }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+            <div class="apply-bar">
+              <a routerLink="/contact" class="btn btn-primary">Lamar Posisi Ini &rarr;</a>
+              <span class="apply-hint">Kirim CV ke <strong>karir&#64;fintax.co.id</strong> dengan subjek "Lamaran — {{ job.title }}"</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO APPLY -->
+<section class="apply-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">CARA MELAMAR</span>
+      <h2>Proses Rekrutmen yang Transparan</h2>
+    </div>
+    <div class="apply-steps">
+      <div class="apply-step" appFadeIn>
+        <div class="step-num">01</div>
+        <h3>Kirim Lamaran</h3>
+        <p>Kirimkan CV dan portofolio Anda melalui email atau formulir kontak. Pastikan subjek email sesuai format yang diminta.</p>
+      </div>
+      <div class="step-arrow"><mat-icon>arrow_forward</mat-icon></div>
+      <div class="apply-step" appFadeIn [style.transition-delay]="'0.1s'">
+        <div class="step-num">02</div>
+        <h3>Seleksi & Interview</h3>
+        <p>Tim HR kami akan menghubungi kandidat terpilih untuk sesi wawancara awal, dilanjutkan uji kompetensi teknis.</p>
+      </div>
+      <div class="step-arrow"><mat-icon>arrow_forward</mat-icon></div>
+      <div class="apply-step" appFadeIn [style.transition-delay]="'0.2s'">
+        <div class="step-num">03</div>
+        <h3>Bergabung</h3>
+        <p>Kandidat terpilih akan menerima offering letter dan menjalani program onboarding terstruktur bersama tim kami.</p>
+      </div>
+    </div>
+    <div class="apply-cta">
+      <a routerLink="/contact" class="btn btn-accent">Kirim Lamaran Sekarang &rarr;</a>
+    </div>
+  </div>
+</section>

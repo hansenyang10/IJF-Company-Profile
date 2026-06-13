@@ -1,0 +1,328 @@
+$primary-blue: #021a3a;
+$accent-orange: #ff6b00;
+$bg-light: #f8fafc;
+$white: #ffffff;
+
+.section-tag {
+  color: $accent-orange;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+h2 { font-size: 2.2rem; color: $primary-blue; margin-top: 5px; margin-bottom: 28px; font-weight: 800; line-height: 1.25; }
+.section-header { margin-bottom: 50px; }
+.text-center { text-align: center; }
+
+// ==========================================
+// CULTURE
+// ==========================================
+.culture-section {
+  padding: 90px 0;
+  background: $white;
+
+  .culture-grid {
+    display: grid;
+    grid-template-columns: 55fr 45fr;
+    gap: 70px;
+    align-items: center;
+  }
+
+  .culture-content {
+    p { color: #4a5568; font-size: 1rem; line-height: 1.75; margin-bottom: 18px; }
+  }
+
+  .culture-image {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba($primary-blue, 0.1);
+
+    img { width: 100%; height: 400px; object-fit: cover; display: block; }
+  }
+}
+
+// ==========================================
+// BENEFITS
+// ==========================================
+.benefits-section {
+  padding: 80px 0;
+  background: $bg-light;
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .benefit-card {
+    background: $white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 30px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba($primary-blue, 0.07); }
+
+    .ben-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: rgba($accent-orange, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+
+      mat-icon { color: $accent-orange; font-size: 26px; width: 26px; height: 26px; }
+    }
+
+    h3 { color: $primary-blue; font-size: 1.05rem; font-weight: 700; margin: 0 0 10px 0; }
+    p { color: #4a5568; font-size: 0.9rem; line-height: 1.65; margin: 0; }
+  }
+}
+
+// ==========================================
+// JOBS ACCORDION
+// ==========================================
+.jobs-section {
+  padding: 90px 0;
+  background: $white;
+
+  .jobs-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .job-item {
+    border-bottom: 1px solid #e2e8f0;
+    &:last-child { border-bottom: none; }
+
+    &.open .job-header { background: rgba($accent-orange, 0.03); }
+
+    .job-header {
+      width: 100%;
+      background: $white;
+      border: none;
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 0.2s ease;
+
+      &:hover { background: rgba($primary-blue, 0.02); }
+
+      .job-title-block {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h3 { color: $primary-blue; font-size: 1.1rem; font-weight: 700; margin: 0; }
+
+        .job-badges {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+
+          .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+
+            &.dept { background: rgba($primary-blue, 0.07); color: $primary-blue; }
+            &.type { background: rgba(16, 185, 129, 0.1); color: #059669; }
+            &.location {
+              background: rgba($accent-orange, 0.1);
+              color: darken($accent-orange, 10%);
+              mat-icon { font-size: 13px; width: 13px; height: 13px; }
+            }
+          }
+        }
+      }
+
+      .job-toggle {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-shrink: 0;
+
+        .exp-label {
+          font-size: 0.82rem;
+          color: #718096;
+          white-space: nowrap;
+          font-weight: 500;
+        }
+
+        mat-icon { color: $accent-orange; font-size: 26px; width: 26px; height: 26px; }
+      }
+    }
+
+    .job-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    &.open .job-details { max-height: 800px; }
+
+    .job-details-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 30px 28px 20px;
+      background: $bg-light;
+      border-top: 1px solid #e2e8f0;
+
+      .detail-col {
+        h4 {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: $primary-blue;
+          font-size: 0.9rem;
+          font-weight: 700;
+          margin: 0 0 14px 0;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+
+          mat-icon { font-size: 18px; width: 18px; height: 18px; color: $accent-orange; }
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          li {
+            font-size: 0.88rem;
+            color: #4a5568;
+            line-height: 1.5;
+            padding-left: 14px;
+            position: relative;
+
+            &::before {
+              content: '•';
+              position: absolute;
+              left: 0;
+              color: $accent-orange;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+
+    .apply-bar {
+      padding: 16px 28px 24px;
+      background: $bg-light;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      .apply-hint { font-size: 0.83rem; color: #718096; }
+    }
+  }
+}
+
+// ==========================================
+// HOW TO APPLY
+// ==========================================
+.apply-section {
+  padding: 90px 0;
+  background: $bg-light;
+
+  .apply-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 50px;
+  }
+
+  .apply-step {
+    flex: 1;
+    max-width: 280px;
+    text-align: center;
+    padding: 0 20px;
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: $accent-orange;
+      color: $white;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    h3 { color: $primary-blue; font-size: 1.05rem; font-weight: 700; margin: 0 0 10px 0; }
+    p { color: #718096; font-size: 0.88rem; line-height: 1.6; margin: 0; }
+  }
+
+  .step-arrow {
+    padding-top: 18px;
+    flex-shrink: 0;
+    mat-icon { color: #cbd5e0; font-size: 28px; width: 28px; height: 28px; }
+  }
+
+  .apply-cta { text-align: center; }
+}
+
+.btn {
+  padding: 13px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.93rem;
+  transition: all 0.22s ease;
+  display: inline-block;
+  border: 1px solid transparent;
+
+  &-primary { background: $accent-orange; color: $white; &:hover { background: darken($accent-orange, 7%); transform: translateY(-2px); } }
+  &-accent { background: $accent-orange; color: $white; box-shadow: 0 8px 20px rgba($accent-orange, 0.2); &:hover { background: darken($accent-orange, 7%); transform: translateY(-2px); } }
+}
+
+// ==========================================
+// RESPONSIVE
+// ==========================================
+@media (max-width: 992px) {
+  h2 { font-size: 1.85rem; }
+  .culture-section .culture-grid { grid-template-columns: 1fr; gap: 40px; }
+  .culture-section .culture-image img { height: 320px; }
+  .benefits-section .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  .jobs-section .job-details-inner { grid-template-columns: 1fr; gap: 30px; }
+  .apply-section .apply-steps { flex-direction: column; align-items: center; gap: 16px; }
+  .apply-section .step-arrow { transform: rotate(90deg); padding: 0; }
+}
+
+@media (max-width: 576px) {
+  h2 { font-size: 1.6rem; }
+  .culture-section { padding: 55px 0; }
+  .culture-section .culture-image img { height: 240px; }
+  .benefits-section { padding: 50px 0; }
+  .benefits-section .benefits-grid { grid-template-columns: 1fr; }
+  .jobs-section { padding: 55px 0; }
+  .jobs-section .job-header { flex-direction: column; align-items: flex-start; padding: 18px 20px; }
+  .jobs-section .job-header .job-toggle { width: 100%; justify-content: space-between; }
+  .jobs-section .job-details-inner { padding: 20px 20px 14px; }
+  .apply-section { padding: 55px 0; }
+  .apply-section .apply-step { max-width: 100%; }
+}

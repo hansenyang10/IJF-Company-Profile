@@ -50,4 +50,95 @@ body {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+/* ==========================================
+   GLOBAL SHARED UTILITIES
+   ========================================== */
+
+/* Container — shared across all pages */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   SHARED PAGE HERO BANNER
+   Used on: About, Services, Insights, Career, Contact
+   ========================================== */
+.page-hero {
+  background: linear-gradient(135deg, #021a3a 0%, #0c2a50 100%);
+  padding: 70px 0 60px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(255, 107, 0, 0.06) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  .page-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 22px;
+
+    a {
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      &:hover { color: white; }
+    }
+
+    .sep { color: rgba(255, 255, 255, 0.3); font-size: 0.85rem; }
+
+    .current {
+      color: #ff6b00;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+  }
+
+  h1 {
+    color: #ffffff;
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.1rem;
+    max-width: 580px;
+    line-height: 1.7;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding: 50px 0 45px;
+    h1 { font-size: 2rem; }
+    .hero-subtitle { font-size: 1rem; }
+  }
+}
+
+@media (max-width: 576px) {
+  .page-hero h1 { font-size: 1.7rem; }
+}
+
 /* You can add global styles to this file, and also import other style files */

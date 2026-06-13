@@ -1,0 +1,316 @@
+$primary-blue: #021a3a;
+$accent-orange: #ff6b00;
+$bg-light: #f8fafc;
+$white: #ffffff;
+
+.section-tag {
+  color: $accent-orange;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+h2 { font-size: 2.2rem; color: $primary-blue; margin-top: 5px; margin-bottom: 30px; font-weight: 800; line-height: 1.25; }
+.section-header { margin-bottom: 50px; }
+.text-center { text-align: center; }
+
+// ==========================================
+// SERVICES GRID
+// ==========================================
+.services-section {
+  padding: 90px 0;
+  background: $bg-light;
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .service-card {
+    background: $white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-6px);
+      border-color: rgba($accent-orange, 0.3);
+      box-shadow: 0 16px 40px rgba($primary-blue, 0.09), inset 3px 0 0 $accent-orange;
+    }
+
+    .card-number {
+      position: absolute;
+      top: 14px; right: 20px;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba($primary-blue, 0.05);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .card-icon-box {
+      width: 54px; height: 54px;
+      border-radius: 12px;
+      background: rgba($accent-orange, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      transition: background-color 0.3s;
+
+      mat-icon { color: $accent-orange; font-size: 28px; width: 28px; height: 28px; }
+    }
+
+    &:hover .card-icon-box { background: rgba($accent-orange, 0.16); }
+
+    h3 { color: $primary-blue; font-size: 1.15rem; font-weight: 700; margin: 0 0 12px 0; }
+
+    .card-desc { color: #4a5568; font-size: 0.92rem; line-height: 1.65; margin: 0 0 20px 0; }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.88rem;
+        color: #4a5568;
+
+        mat-icon { font-size: 16px; width: 16px; height: 16px; color: $accent-orange; flex-shrink: 0; }
+      }
+    }
+
+    .card-cta {
+      margin-top: auto;
+      color: $accent-orange;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.2s ease;
+      &:hover { gap: 10px; }
+    }
+  }
+}
+
+// ==========================================
+// PROCESS
+// ==========================================
+.process-section {
+  padding: 90px 0;
+  background: $white;
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+
+  .process-step {
+    text-align: center;
+    padding: 32px 20px;
+    background: $bg-light;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    position: relative;
+
+    .step-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: rgba($accent-orange, 0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+
+      mat-icon { color: $accent-orange; font-size: 28px; width: 28px; height: 28px; }
+    }
+
+    .step-number {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: $accent-orange;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    h3 { color: $primary-blue; font-size: 1rem; font-weight: 700; margin: 0 0 10px 0; }
+    p { color: #718096; font-size: 0.88rem; line-height: 1.6; margin: 0; }
+
+    .step-connector {
+      display: none; // Handled via grid gap
+    }
+  }
+}
+
+// ==========================================
+// INDUSTRIES
+// ==========================================
+.industries-section {
+  padding: 80px 0;
+  background: $bg-light;
+
+  .industries-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .industry-card {
+    background: $white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: default;
+
+    mat-icon { color: $accent-orange; font-size: 30px; width: 30px; height: 30px; }
+    span { color: $primary-blue; font-size: 0.9rem; font-weight: 600; }
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgba($accent-orange, 0.3);
+      box-shadow: 0 8px 24px rgba($primary-blue, 0.07);
+    }
+  }
+}
+
+// ==========================================
+// FAQ
+// ==========================================
+.faq-section {
+  padding: 90px 0;
+  background: $white;
+
+  .faq-layout {
+    display: grid;
+    grid-template-columns: 35fr 60fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .faq-left {
+    position: sticky;
+    top: 90px;
+
+    p { color: #718096; font-size: 0.95rem; line-height: 1.65; margin-bottom: 28px; }
+  }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+
+  .faq-item {
+    border-bottom: 1px solid #e2e8f0;
+
+    &:first-child { border-top: 1px solid #e2e8f0; }
+
+    &.open .faq-question {
+      color: $primary-blue;
+      mat-icon { transform: rotate(0deg); }
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      color: #2d3748;
+      font-size: 0.97rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+
+      &:hover { color: $primary-blue; }
+
+      mat-icon {
+        font-size: 22px; width: 22px; height: 22px;
+        color: $accent-orange;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+      }
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding-bottom: 0;
+
+      p { color: #4a5568; font-size: 0.93rem; line-height: 1.7; margin: 0; }
+    }
+
+    &.open .faq-answer {
+      max-height: 500px;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+.btn {
+  padding: 13px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.93rem;
+  transition: all 0.22s ease;
+  display: inline-block;
+  border: 1px solid transparent;
+
+  &-primary { background: $accent-orange; color: $white; &:hover { background: darken($accent-orange, 7%); transform: translateY(-2px); } }
+}
+
+// ==========================================
+// RESPONSIVE
+// ==========================================
+@media (max-width: 1100px) {
+  .process-section .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .industries-section .industries-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 992px) {
+  h2 { font-size: 1.85rem; }
+  .services-section .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .industries-section .industries-grid { grid-template-columns: repeat(2, 1fr); }
+  .faq-section .faq-layout { grid-template-columns: 1fr; gap: 40px; }
+  .faq-section .faq-left { position: static; }
+}
+
+@media (max-width: 576px) {
+  h2 { font-size: 1.6rem; }
+  .services-section { padding: 55px 0; }
+  .services-section .services-grid { grid-template-columns: 1fr; }
+  .services-section .service-card { padding: 22px; }
+  .process-section { padding: 55px 0; }
+  .process-section .process-grid { grid-template-columns: 1fr; }
+  .industries-section { padding: 50px 0; }
+  .industries-section .industries-grid { grid-template-columns: repeat(2, 1fr); }
+  .faq-section { padding: 55px 0; }
+}

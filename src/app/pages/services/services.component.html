@@ -1,1 +1,108 @@
-<p>services works!</p>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <nav class="breadcrumb">
+      <a routerLink="/">Beranda</a>
+      <span class="sep">/</span>
+      <span class="current">Layanan</span>
+    </nav>
+    <h1>Layanan & Solusi Kami</h1>
+    <p class="hero-subtitle">Solusi perpajakan dan akuntansi yang komprehensif, dirancang khusus untuk mendukung pertumbuhan bisnis Anda.</p>
+  </div>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="services-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">LAYANAN KAMI</span>
+      <h2>Solusi Lengkap untuk Setiap Kebutuhan Bisnis</h2>
+    </div>
+    <div class="services-grid">
+      @for (svc of services; track svc.id; let i = $index) {
+        <article class="service-card" appFadeIn [style.transition-delay]="(i * 0.08) + 's'">
+          <span class="card-number">{{ (i + 1).toString().padStart(2, '0') }}</span>
+          <div class="card-icon-box">
+            <mat-icon>{{ svc.icon }}</mat-icon>
+          </div>
+          <h3>{{ svc.title }}</h3>
+          <p class="card-desc">{{ svc.desc }}</p>
+          <ul class="feature-list">
+            @for (f of svc.features; track f) {
+              <li><mat-icon>check</mat-icon>{{ f }}</li>
+            }
+          </ul>
+          <a routerLink="/contact" class="card-cta">Konsultasi Sekarang &rarr;</a>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="process-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">CARA KERJA KAMI</span>
+      <h2>Proses yang Terstruktur, Hasil yang Terukur</h2>
+    </div>
+    <div class="process-grid">
+      @for (step of process; track step.step; let i = $index; let last = $last) {
+        <div class="process-step" appFadeIn [style.transition-delay]="(i * 0.12) + 's'">
+          <div class="step-icon">
+            <mat-icon>{{ step.icon }}</mat-icon>
+          </div>
+          <span class="step-number">{{ step.step }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.desc }}</p>
+          @if (!last) {
+            <div class="step-connector"></div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">INDUSTRI YANG DILAYANI</span>
+      <h2>Berpengalaman di Berbagai Sektor</h2>
+    </div>
+    <div class="industries-grid">
+      @for (ind of industries; track ind.name; let i = $index) {
+        <div class="industry-card" appFadeIn [style.transition-delay]="(i * 0.06) + 's'">
+          <mat-icon>{{ ind.icon }}</mat-icon>
+          <span>{{ ind.name }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" appFadeIn>
+  <div class="container faq-layout">
+    <div class="faq-left">
+      <span class="section-tag">FAQ</span>
+      <h2>Pertanyaan yang Sering Diajukan</h2>
+      <p>Tidak menemukan jawaban yang Anda cari? Hubungi tim kami langsung.</p>
+      <a routerLink="/contact" class="btn btn-primary">Hubungi Kami &rarr;</a>
+    </div>
+    <div class="faq-list">
+      @for (faq of faqs; track faq.q; let i = $index) {
+        <div class="faq-item" [class.open]="openFaqIndex() === i">
+          <button class="faq-question" (click)="toggleFaq(i)">
+            <span>{{ faq.q }}</span>
+            <mat-icon>{{ openFaqIndex() === i ? 'remove' : 'add' }}</mat-icon>
+          </button>
+          <div class="faq-answer">
+            <p>{{ faq.a }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

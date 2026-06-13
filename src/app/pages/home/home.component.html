@@ -1,17 +1,22 @@
 <section class="hero-section">
+  <div class="hero-bg-pattern"></div>
   <div class="container hero-grid">
     <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Konsultan Pajak &amp; Akuntansi Terpercaya
+      </div>
       <span class="tagline">YOUR TRUSTED TAX & ACCOUNTING PARTNER</span>
-      <h1>Tax & Accounting Solutions for Growing Businesses</h1>
+      <h1>Tax & Accounting <span class="text-accent">Solutions</span> for Growing Businesses</h1>
       <p>Kami membantu perusahaan dan UMKM tetap patuh terhadap regulasi perpajakan, mengelola keuangan dengan efisien, dan siap untuk terus bertumbuh.</p>
       <div class="cta-buttons">
-        <a href="#contact" class="btn btn-primary">Jadwalkan Konsultasi &rarr;</a>
-        <a href="#services" class="btn btn-secondary">Lihat Layanan &rarr;</a>
+        <a routerLink="/contact" class="btn btn-primary">Jadwalkan Konsultasi &rarr;</a>
+        <a href="#services" class="btn btn-secondary">Lihat Layanan</a>
       </div>
       <div class="used-by">
         <p>Dipercaya oleh berbagai perusahaan</p>
-        
-        <div class="slider-viewport" 
+
+        <div class="slider-viewport"
             (mousedown)="onCompanyDragStart($event)"
             (mousemove)="onCompanyDragMove($event)"
             (mouseup)="onCompanyDragEnd()"
@@ -19,11 +24,11 @@
             (touchstart)="onCompanyDragStart($event)"
             (touchmove)="onCompanyDragMove($event)"
             (touchend)="onCompanyDragEnd()">
-            
-          <div class="slider-track" 
+
+          <div class="slider-track"
               [style.transform]="'translateX(calc(-' + (currentPage() * 100) + '% + ' + companyDragOffset() + 'px))'"
               [style.transition]="isCompanyDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'">
-            
+
             @for (page of companyPages; track $index) {
               <div class="slider-page">
                 @for (logo of page.logos; track logo.name) {
@@ -39,8 +44,8 @@
 
         <div class="pagination-dots">
           @for (page of companyPages; track $index) {
-            <button 
-              class="dot" 
+            <button
+              class="dot"
               [class.active]="$index === currentPage()"
               (click)="goToPage($index)">
             </button>
@@ -50,7 +55,15 @@
     </div>
     <div class="hero-image-box">
       <img src="assets/team/hero-team.jpeg" alt="Tim Profesional Konsultan Pajak IJF Fintax" loading="eager">
-      <div class="geometric-dots"></div> </div>
+      <div class="hero-stat-float">
+        <div class="hsf-icon"><mat-icon>groups</mat-icon></div>
+        <div class="hsf-info">
+          <strong>300+</strong>
+          <span>Klien Aktif</span>
+        </div>
+      </div>
+      <div class="geometric-dots"></div>
+    </div>
   </div>
 </section>
 
@@ -59,7 +72,7 @@
    @for (stat of stats(); track stat.label; let last = $last) {
       <div class="stat-card" [class.has-divider]="!last">
         <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
-        
+
         <div class="stat-info">
           <h3 [appCountUp]="stat.value">0</h3>
           <p class="stat-title">{{ stat.label }}</p>
@@ -75,21 +88,21 @@
   <div class="container text-center">
     <span class="section-tag">LAYANAN KAMI</span>
     <h2>Solusi Lengkap untuk Kebutuhan Pajak & Keuangan Anda</h2>
-    
+
     <div class="services-grid">
       @for (item of services(); track item.id; let i = $index) {
         <article class="service-card" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
-          
+          <span class="card-number">{{ (i + 1).toString().padStart(2, '0') }}</span>
           <div class="card-header">
             <div class="icon-wrapper">
               <mat-icon class="icon">{{ item.icon }}</mat-icon>
             </div>
             <h3>{{ item.title }}</h3>
           </div>
-          
+
           <p class="card-desc">{{ item.desc }}</p>
-          
-          <a [href]="'/services/' + item.id" class="read-more">Selengkapnya &rarr;</a>
+
+          <a routerLink="/services" class="read-more">Selengkapnya &rarr;</a>
         </article>
       }
     </div>
@@ -98,29 +111,47 @@
 
 <section class="about-section" appFadeIn>
   <div class="about-master-grid">
-    
+
     <div class="about-block left-side">
       <div class="about-text-card">
         <span class="section-tag invert">TENTANG KAMI</span>
         <h2>Partner Terpercaya untuk Pertumbuhan Bisnis Anda</h2>
         <p>Ignatius Julyani Fintax adalah firma konsultan pajak dan akuntansi yang berdiri sejak 2016. Kami hadir sebagai mitra strategis bagi perusahaan dalam mengelola finansial secara profesional dan transparan.</p>
-        <a href="/about" class="btn btn-outline-white">Selengkapnya Tentang Kami &rarr;</a>
+        <a routerLink="/about" class="btn btn-outline-white">Selengkapnya Tentang Kami &rarr;</a>
       </div>
       <div class="about-image-box building-img">
         <img src="assets/building.jpg" alt="Fintax Building & Logo">
       </div>
     </div>
-    
+
     <div class="about-block right-side">
       <div class="why-choose-us">
         <span class="section-tag">MENGAPA MEMILIH KAMI</span>
         <ul class="features-list">
-          <li><span class="check">&#10003;</span> <span>Tim Profesional & Bersertifikasi</span></li>
-          <li><span class="check">&#10003;</span> <span>Respon Cepat & Komunikasi Terbuka</span></li>
-          <li><span class="check">&#10003;</span> <span>Pemahaman Mendalam terhadap Regulasi</span></li>
-          <li><span class="check">&#10003;</span> <span>Solusi Disesuaikan dengan Kebutuhan Bisnis</span></li>
-          <li><span class="check">&#10003;</span> <span>Kerahasiaan Data Klien Terjamin</span></li>
-          <li><span class="check">&#10003;</span> <span>Pendampingan End-to-End</span></li>
+          <li>
+            <span class="check-icon"><mat-icon>check_circle</mat-icon></span>
+            <span>Tim Profesional &amp; Bersertifikasi</span>
+          </li>
+          <li>
+            <span class="check-icon"><mat-icon>check_circle</mat-icon></span>
+            <span>Respon Cepat &amp; Komunikasi Terbuka</span>
+          </li>
+          <li>
+            <span class="check-icon"><mat-icon>check_circle</mat-icon></span>
+            <span>Pemahaman Mendalam terhadap Regulasi</span>
+          </li>
+          <li>
+            <span class="check-icon"><mat-icon>check_circle</mat-icon></span>
+            <span>Solusi Disesuaikan dengan Kebutuhan Bisnis</span>
+          </li>
+          <li>
+            <span class="check-icon"><mat-icon>check_circle</mat-icon></span>
+            <span>Kerahasiaan Data Klien Terjamin</span>
+          </li>
+          <li>
+            <span class="check-icon"><mat-icon>check_circle</mat-icon></span>
+            <span>Pendampingan End-to-End</span>
+          </li>
         </ul>
       </div>
       <div class="about-image-box team-img">
@@ -133,7 +164,7 @@
 
 <section class="team-section" appFadeIn>
   <div class="container">
-    
+
     <div class="team-header-container">
       <div class="header-text-center">
         <span class="section-tag">TIM PROFESIONAL KAMI</span>
@@ -157,12 +188,12 @@
          (touchstart)="onTeamDragStart($event)"
          (touchmove)="onTeamDragMove($event)"
          (touchend)="onTeamDragEnd()">
-         
+
       <div class="team-track"
            [style.--current-index]="currentTeamIndex()"
            [style.--drag-offset.px]="teamDragOffset()"
            [style.transition]="isTeamDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'">
-        
+
         @for (member of team(); track member.name; let i = $index) {
           <div class="team-slide-item" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
             <div class="team-card">
@@ -195,18 +226,21 @@
         <span class="section-tag">INSIGHT TERBARU</span>
         <h2>Update Pajak & Keuangan Terpercaya</h2>
       </div>
-      <a href="/insights" class="link-all">Lihat Semua Insight &rarr;</a>
+      <a routerLink="/insights" class="link-all">Lihat Semua Insight &rarr;</a>
     </div>
     <div class="insights-grid">
       @for (blog of insights(); track blog.title; let i = $index) {
         <article class="blog-card" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
           <div class="blog-img-box">
             <img [src]="blog.img" [alt]="blog.title">
+            <span class="img-tag">{{ blog.tag }}</span>
           </div>
           <div class="blog-content">
-            <span class="blog-tag">{{ blog.tag }}</span>
             <h3>{{ blog.title }}</h3>
-            <p class="date">{{ blog.date }}</p>
+            <div class="blog-meta">
+              <mat-icon>calendar_today</mat-icon>
+              <span class="date">{{ blog.date }}</span>
+            </div>
           </div>
         </article>
       }

@@ -1,1 +1,47 @@
-<p>header works!</p>
+<header class="navbar" [class.scrolled]="isScrolled()">
+  <div class="container nav-container">
+
+    <!-- Logo -->
+    <a routerLink="/" class="nav-logo" (click)="closeMobileMenu()">
+      <img src="assets/logos/ijf-logo.png" alt="IJF Fintax Logo">
+      <div class="logo-text">
+        <span class="brand-name">IGNATIUS JULYANI</span>
+        <span class="brand-main">FINTAX</span>
+        <span class="brand-sub">Tax & Accounting Consultant</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-links" aria-label="Main navigation">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Beranda</a>
+      <a routerLink="/about" routerLinkActive="active">Tentang Kami</a>
+      <a routerLink="/services" routerLinkActive="active">Layanan</a>
+      <a routerLink="/insights" routerLinkActive="active">Insight</a>
+      <a routerLink="/career" routerLinkActive="active">Karir</a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      <a routerLink="/contact" class="btn-cta" (click)="closeMobileMenu()">Konsultasi Gratis</a>
+      <button
+        class="mobile-toggle"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="isMobileMenuOpen()"
+        aria-label="Toggle menu">
+        <mat-icon>{{ isMobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="isMobileMenuOpen()" role="navigation" aria-label="Mobile navigation">
+    <nav class="mobile-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">Beranda</a>
+      <a routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()">Tentang Kami</a>
+      <a routerLink="/services" routerLinkActive="active" (click)="closeMobileMenu()">Layanan</a>
+      <a routerLink="/insights" routerLinkActive="active" (click)="closeMobileMenu()">Insight</a>
+      <a routerLink="/career" routerLinkActive="active" (click)="closeMobileMenu()">Karir</a>
+      <a routerLink="/contact" class="btn-cta-mobile" (click)="closeMobileMenu()">Konsultasi Gratis &rarr;</a>
+    </nav>
+  </div>
+</header>

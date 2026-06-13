@@ -23,7 +23,7 @@ $white: #ffffff;
   display: inline-block;
   margin-bottom: 10px;
   text-transform: uppercase;
-  
+
   &.invert {
     color: lighten($accent-orange, 15%);
   }
@@ -38,36 +38,87 @@ h2 {
 }
 
 // ==========================================
-// 2. HERO SECTION (PROPORSI BARU 55% : 45%)
+// 2. HERO SECTION
 // ==========================================
 .hero-section {
   background-color: $white;
   padding: 80px 0;
   display: flex;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  .hero-bg-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba($primary-blue, 0.045) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 55% 45%; // FIX: Teks mendapat 55% (luas), Gambar mengecil ke 45%
-    align-items: center;           // Menjaga teks dan gambar sejajar proporsional di tengah
+    grid-template-columns: 55fr 45fr;
+    align-items: center;
     width: 100%;
-    gap: 50px;                     // Jarak dirapatkan agar lebih padat
+    min-width: 0;
+    gap: 50px;
+    position: relative;
+    z-index: 1;
   }
 
   .hero-content {
     grid-column: 1;
+    min-width: 0;
     position: relative;
     z-index: 10;
-    margin-right: -60px;           // FIX: Efek tumpukan dikurangi agar pas dengan grid baru
+    margin-right: -60px;
     background: transparent;
+    overflow-wrap: break-word;
 
-    .tagline, h1, p, .cta-buttons, .used-by {
-      opacity: 0; 
+    .hero-badge,
+    .tagline,
+    h1,
+    p,
+    .cta-buttons,
+    .used-by {
+      opacity: 0;
       animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
 
+    .hero-badge {
+      animation-delay: 0.1s;
+      display: flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      background: rgba($accent-orange, 0.08);
+      border: 1px solid rgba($accent-orange, 0.2);
+      color: darken($accent-orange, 5%);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+
+      .badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: $accent-orange;
+        flex-shrink: 0;
+        animation: pulse 2.2s ease-in-out infinite;
+      }
+    }
+
     .tagline {
-      animation-delay: 0.2s; 
+      animation-delay: 0.2s;
+      display: block;
       color: $accent-orange;
       font-weight: 700;
       font-size: 0.9rem;
@@ -75,11 +126,15 @@ h2 {
     }
 
     h1 {
-      font-size: 3rem; 
+      font-size: 3rem;
       color: $primary-blue;
       line-height: 1.2;
       margin: 15px 0 20px 0;
-      animation-delay: 0.4s; 
+      animation-delay: 0.4s;
+
+      .text-accent {
+        color: $accent-orange;
+      }
     }
 
     p {
@@ -87,16 +142,16 @@ h2 {
       line-height: 1.7;
       color: #555;
       margin-bottom: 30px;
-      animation-delay: 0.6s; 
+      animation-delay: 0.6s;
     }
 
     .cta-buttons {
       display: flex;
       gap: 15px;
-      animation-delay: 0.8s; 
+      animation-delay: 0.8s;
     }
 
-    // --- INTEGRASI CAROUSEL SLIDER LOGO ---
+    // --- LOGO CAROUSEL ---
     .used-by {
       animation-delay: 1s;
       margin-top: 50px;
@@ -153,7 +208,6 @@ h2 {
         }
       }
 
-      // Pagination Dots (Penanda Halaman)
       .pagination-dots {
         display: flex;
         justify-content: flex-start;
@@ -173,7 +227,7 @@ h2 {
 
           &.active {
             background-color: $primary-blue;
-            width: 20px; // Efek memanjang lonjong saat aktif
+            width: 20px;
             border-radius: 4px;
           }
         }
@@ -184,8 +238,7 @@ h2 {
   .hero-image-box {
     grid-column: 2;
     width: 100%;
-    height: 440px;                 // FIX: Batasi tinggi maksimal agar tidak raksasa
-    min-height: auto; 
+    height: 440px;
     position: relative;
     z-index: 1;
     animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -194,8 +247,61 @@ h2 {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center; 
-      border-radius: 16px;         // Rounded penuh di semua sudut agar lebih rapi
+      object-position: center center;
+      border-radius: 16px;
+    }
+
+    // Floating stat badge
+    .hero-stat-float {
+      position: absolute;
+      bottom: 24px;
+      right: 20px;
+      background: $white;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+      z-index: 5;
+      animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+      .hsf-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: rgba($accent-orange, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        mat-icon {
+          color: $accent-orange;
+          font-size: 22px;
+          width: 22px;
+          height: 22px;
+        }
+      }
+
+      .hsf-info {
+        display: flex;
+        flex-direction: column;
+
+        strong {
+          font-size: 1.35rem;
+          font-weight: 800;
+          color: $primary-blue;
+          line-height: 1;
+        }
+
+        span {
+          font-size: 0.72rem;
+          color: #718096;
+          margin-top: 3px;
+          font-weight: 500;
+        }
+      }
     }
 
     .geometric-dots {
@@ -207,20 +313,20 @@ h2 {
       background-image: radial-gradient($accent-orange 20%, transparent 20%);
       background-size: 10px 10px;
       opacity: 0.25;
-      z-index: 3; 
+      z-index: 3;
       pointer-events: none;
     }
 
-    // Gradasi transparan diatur ulang agar luntur halus di sisi kiri gambar yang mengecil
     &::before {
       content: '';
       position: absolute;
       left: 0;
       top: 0;
-      width: 35%; 
+      width: 35%;
       height: 100%;
       background: linear-gradient(to right, $white 0%, rgba($white, 0) 100%);
       z-index: 2;
+      border-radius: 16px 0 0 16px;
       pointer-events: none;
     }
   }
@@ -230,30 +336,40 @@ h2 {
 // 3. STATS RIBBON
 // ==========================================
 .stats-ribbon {
-  background-color: #0c1a30; 
+  background: linear-gradient(135deg, #0a1628 0%, #0c1a30 60%, #0e2040 100%);
   padding: 35px 0;
-  color: #ffffff;
+  color: $white;
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     align-items: center;
   }
 
   .stat-card {
     display: flex;
-    align-items: flex-start; 
-    gap: 16px;              
+    align-items: flex-start;
+    gap: 16px;
     position: relative;
     width: 100%;
 
+    &.has-divider::after {
+      content: '';
+      position: absolute;
+      right: -12px;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: rgba($white, 0.12);
+    }
+
     .stat-icon {
-      font-size: 42px;      
+      font-size: 42px;
       width: 42px;
       height: 42px;
-      color: #ff6b00;       
-      align-items: center;
+      color: $accent-orange;
+      flex-shrink: 0;
     }
 
     .stat-info {
@@ -263,7 +379,7 @@ h2 {
       h3 {
         font-size: 1.8rem;
         font-weight: 700;
-        color: #ffffff;
+        color: $white;
         margin: 0;
         line-height: 1;
       }
@@ -271,13 +387,13 @@ h2 {
       .stat-title {
         font-size: 0.95rem;
         font-weight: 600;
-        color: #ffffff;
+        color: $white;
         margin: 6px 0 2px 0;
       }
 
       .stat-sub {
         font-size: 0.8rem;
-        color: #a0aec0;    
+        color: #a0aec0;
         margin: 0;
       }
     }
@@ -292,7 +408,7 @@ h2 {
   background-color: $bg-light;
 
   h2 {
-    color: #0c1a30; 
+    color: #0c1a30;
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 50px;
@@ -301,44 +417,61 @@ h2 {
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    grid-auto-rows: 1fr;                                                  
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
     gap: 30px;
-    text-align: left;                                                     
+    text-align: left;
   }
 }
 
 .service-card {
-  background: #ffffff;
+  background: $white;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 30px;
   display: flex;
-  flex-direction: column;               
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  .card-number {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 3rem;
+    font-weight: 900;
+    color: rgba($primary-blue, 0.05);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(12, 26, 48, 0.08);
-    border-color: rgba(#ff6b00, 0.3);   
+    transform: translateY(-6px);
+    border-color: rgba($accent-orange, 0.25);
+    box-shadow: 0 16px 32px rgba(12, 26, 48, 0.09),
+                inset 3px 0 0 $accent-orange;
   }
 
   .card-header {
     display: flex;
-    align-items: center;               
-    gap: 16px;                                                                
+    align-items: center;
+    gap: 16px;
     margin-bottom: 20px;
 
     .icon-wrapper {
-      background-color: rgba(255, 107, 0, 0.1); 
+      background-color: rgba($accent-orange, 0.1);
       padding: 10px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
 
       .icon {
-        color: #ff6b00;
+        color: $accent-orange;
         font-size: 28px;
         width: 28px;
         height: 28px;
@@ -347,33 +480,38 @@ h2 {
 
     h3 {
       color: #0c1a30;
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 700;
       margin: 0;
+      line-height: 1.3;
     }
+  }
+
+  &:hover .card-header .icon-wrapper {
+    background-color: rgba($accent-orange, 0.15);
   }
 
   .card-desc {
     color: #4a5568;
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.65;
     margin: 0 0 24px 0;
+    flex: 1;
   }
 
   .read-more {
-    margin-top: auto;                  
-    color: #ff6b00;
-    font-weight: 600;
-    font-size: 0.9rem;
+    margin-top: auto;
+    color: $accent-orange;
+    font-weight: 700;
+    font-size: 0.88rem;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    letter-spacing: 0.3px;
     transition: gap 0.2s ease;
 
-    &:hover {
-      gap: 8px;                                                                
-    }
+    &:hover { gap: 10px; }
   }
 }
 
@@ -387,39 +525,39 @@ h2 {
 
   .about-master-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr;
     width: 100%;
   }
 
   .about-block {
     display: grid;
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr;
     align-items: stretch;
   }
 
-  // --- SISI KIRI (TENTANG KAMI) ---
+  // --- LEFT SIDE ---
   .left-side {
     .about-text-card {
-      background-color: #0c1a30; 
+      background-color: #0c1a30;
       color: $white;
-      padding: 60px 40px 60px 8%; 
+      padding: 60px 40px 60px 8%;
       display: flex;
       flex-direction: column;
       justify-content: center;
 
-      h2 { 
-        color: $white; 
+      h2 {
+        color: $white;
         font-size: 2rem;
         line-height: 1.3;
         margin-top: 10px;
         margin-bottom: 20px;
       }
-      
-      p { 
-        color: #cbd5e0; 
+
+      p {
+        color: #cbd5e0;
         font-size: 0.95rem;
-        line-height: 1.6; 
-        margin-bottom: 30px; 
+        line-height: 1.7;
+        margin-bottom: 30px;
       }
 
       .btn-outline-white {
@@ -428,7 +566,7 @@ h2 {
         color: $white;
         font-size: 0.85rem;
         padding: 12px 24px;
-        
+
         &:hover {
           background-color: rgba($white, 0.1);
           border-color: $white;
@@ -437,25 +575,21 @@ h2 {
     }
   }
 
-  // --- SISI KANAN ---
+  // --- RIGHT SIDE (fixed: removed fragile negative-margin overlap) ---
   .right-side {
-    background-color: $white;
-    display: grid;                  
-    grid-template-columns: 30% 70%; 
+    background-color: $bg-light;
+    display: grid;
+    grid-template-columns: 45% 55%;
     align-items: stretch;
 
     .why-choose-us {
       grid-column: 1;
-      align-self: center;           
-      padding: 60px 0 60px 40px;    
-      position: relative;
-      z-index: 10;                  
-      margin-right: -180px;         
-      background: transparent;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-      .section-tag {
-        margin-bottom: 20px;
-      }
+      .section-tag { margin-bottom: 20px; }
 
       .features-list {
         list-style: none;
@@ -465,16 +599,23 @@ h2 {
         li {
           display: flex;
           align-items: center;
-          margin-bottom: 16px;
+          gap: 12px;
+          margin-bottom: 15px;
           font-size: 0.95rem;
           font-weight: 600;
           color: #1a202c;
 
-          .check {
-            color: $accent-orange;
-            font-weight: bold;
-            margin-right: 12px;
-            font-size: 1.1rem;
+          .check-icon {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+
+            mat-icon {
+              color: $accent-orange;
+              font-size: 20px;
+              width: 20px;
+              height: 20px;
+            }
           }
         }
       }
@@ -496,37 +637,21 @@ h2 {
     }
 
     &.team-img {
-      grid-column: 2; 
-      min-height: 450px;            
-      z-index: 1;
+      grid-column: 2;
+      min-height: 420px;
 
-      img {
-        object-position: 4% center; 
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 50%; 
-        height: 100%;
-        background: linear-gradient(to right, $white 15%, rgba($white, 0) 100%);
-        z-index: 2;
-        pointer-events: none;
-      }
+      img { object-position: center center; }
     }
   }
 }
 
 // ==========================================
-// 6. TEAM SECTION (CAROUSEL & DRAG RE-ARCHITECT)
+// 6. TEAM SECTION
 // ==========================================
 .team-section {
   padding: 80px 0;
   background-color: $bg-light;
 
-  // Header Navigasi Sisi Kanan Atas (Sesuai Gambar)
   .team-header-container {
     display: flex;
     justify-content: center;
@@ -567,16 +692,16 @@ h2 {
           height: 20px;
         }
 
-        &:hover:not(:disabled):not(.disabled) {
+        &:hover:not(:disabled) {
           background: $primary-blue;
           color: $white;
           border-color: $primary-blue;
         }
 
-        &:disabled, &.disabled {
+        &:disabled {
           opacity: 0.35;
           cursor: not-allowed;
-          pointer-events: none; // Mematikan click event & hover effect
+          pointer-events: none;
           background: #edf2f7;
           color: #a0aec0;
           border-color: #e2e8f0;
@@ -586,17 +711,15 @@ h2 {
     }
   }
 
-  // Viewport Slider Container
   .team-viewport {
     width: 100%;
-    overflow: hidden; 
+    overflow: hidden;
     position: relative;
     cursor: grab;
-    
+
     &:active { cursor: grabbing; }
   }
 
-  // Dynamic Slider Track Engine
   .team-track {
     display: flex;
     margin-left: -12px;
@@ -614,10 +737,9 @@ h2 {
     }
   }
 
-  // Responsive Carousel Grid Item
   .team-slide-item {
-    flex: 0 0 25%; 
-    padding: 0 12px; 
+    flex: 0 0 25%;
+    padding: 0 12px;
     box-sizing: border-box;
     user-select: none;
 
@@ -625,53 +747,65 @@ h2 {
     @media (max-width: 992px) { flex: 0 0 50%; }
     @media (max-width: 576px) { flex: 0 0 100%; }
   }
-
-  // CSS Bawaan Anda Tetap Dipertahankan Penuh
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 30px;
-    margin-top: 40px;
-  }
 }
 
-// Desain Existing Team Card Anda (Ditambah Proteksi Drag Glitch)
 .team-card {
   background-color: $white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
   width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.09);
+  }
 
   .member-img-box {
     width: 100%;
-    height: 320px;
-    img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      pointer-events: none; // Proteksi agar tidak terseleksi biru pas di-drag
+    height: 300px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
       user-select: none;
     }
   }
 
   .team-info {
-    padding: 25px;
-    h3 { color: $primary-blue; margin: 0 0 5px 0; font-size: 1.2rem; }
-    .role { color: $accent-orange; font-weight: 600; margin: 0 0 15px 0; font-size: 0.95rem; }
-    
+    padding: 22px 24px 24px;
+
+    h3 {
+      color: $primary-blue;
+      margin: 0 0 4px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .role {
+      color: $accent-orange;
+      font-weight: 600;
+      margin: 0 0 14px 0;
+      font-size: 0.9rem;
+    }
+
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      
+
       .tag-badge {
-        background-color: #edf2f7;
+        background-color: $bg-light;
         color: #4a5568;
-        font-size: 0.75rem;
-        padding: 4px 8px;
-        border-radius: 4px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
       }
     }
   }
@@ -695,33 +829,96 @@ h2 {
     color: $primary-blue;
     text-decoration: none;
     font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: color 0.2s ease;
     &:hover { color: $accent-orange; }
   }
 
   .insights-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
 }
 
 .blog-card {
   background: $white;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
   border: 1px solid #edf2f7;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.09);
+
+    .blog-img-box img {
+      transform: scale(1.05);
+    }
+  }
 
   .blog-img-box {
     height: 180px;
-    img { width: 100%; height: 100%; object-fit: cover; }
+    position: relative;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    .img-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: $accent-orange;
+      color: $white;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
   }
 
   .blog-content {
-    padding: 20px;
-    .blog-tag { color: $accent-orange; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-    h3 { font-size: 1.05rem; color: $primary-blue; margin: 8px 0 12px 0; line-height: 1.4; height: 44px; overflow: hidden; }
-    .date { font-size: 0.8rem; color: #a0aec0; margin: 0; }
+    padding: 18px 20px 20px;
+
+    h3 {
+      font-size: 1rem;
+      color: $primary-blue;
+      margin: 0 0 14px 0;
+      line-height: 1.5;
+      font-weight: 700;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      mat-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+        color: #a0aec0;
+      }
+
+      .date {
+        font-size: 0.8rem;
+        color: #a0aec0;
+        font-weight: 500;
+      }
+    }
   }
 }
 
@@ -734,7 +931,7 @@ h2 {
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.22s ease-in-out;
   display: inline-block;
   text-align: center;
   border: 1px solid transparent;
@@ -769,11 +966,11 @@ h2 {
 }
 
 // ==========================================
-// 10. CLEAN RESPONSIVE SYSTEM (DESKTOP-FIRST)
+// 9. RESPONSIVE
 // ==========================================
 @media (max-width: 1200px) {
   .about-section .left-side .about-text-card {
-    padding-left: 40px; 
+    padding-left: 40px;
   }
 }
 
@@ -782,25 +979,36 @@ h2 {
 
   .stats-ribbon .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
   .services-section .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .team-section .team-grid { grid-template-columns: repeat(2, 1fr); }
   .insights-section .insights-grid { grid-template-columns: repeat(2, 1fr); }
 
   .hero-section {
     padding: 60px 0;
+
     .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+
     .hero-content {
-      margin-right: 0; text-align: center;
+      margin-right: 0;
+      text-align: center;
+
+      .hero-badge { margin-left: auto; margin-right: auto; }
       .cta-buttons { justify-content: center; }
       .used-by {
         .logo-item img { max-width: 95px; }
         .pagination-dots { justify-content: center; }
       }
     }
+
     .hero-image-box {
+      grid-column: 1;
       height: 340px;
+
+      .hero-stat-float { display: none; }
+
       &::before {
-        width: 100%; height: 50%;
+        width: 100%;
+        height: 50%;
         background: linear-gradient(to bottom, $white 10%, rgba($white, 0) 100%);
+        border-radius: 0;
       }
     }
   }
@@ -810,68 +1018,82 @@ h2 {
     .about-block { grid-template-columns: 1fr; }
     .right-side {
       grid-template-columns: 1fr;
-      .why-choose-us { margin-right: 0; padding: 40px 20px; }
+      .why-choose-us { padding: 40px 20px; }
     }
-    .about-image-box.team-img {
-      height: 320px;
-      &::before {
-        width: 100%; height: 50%;
-        background: linear-gradient(to bottom, $white 10%, rgba($white, 0) 100%);
-      }
-    }
+    .about-image-box.team-img { height: 300px; min-height: unset; }
+  }
+
+  .team-section .team-header-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    .team-nav-buttons { position: static; }
   }
 }
 
 @media (max-width: 576px) {
   h2 { font-size: 1.6rem; margin-bottom: 25px; }
 
+  .stats-ribbon { padding: 24px 0; }
   .stats-ribbon .stats-grid,
   .services-section .services-grid,
-  .team-section .team-grid,
   .insights-section .insights-grid {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
-  
+
   .hero-section {
     padding: 40px 0;
+
     .hero-content {
       padding: 0 10px;
       h1 { font-size: 2rem; }
       .cta-buttons { flex-direction: column; gap: 12px; }
-      
       .used-by {
         .slider-page { gap: 10px; justify-content: space-around; }
-        .logo-item img { max-width: 80px; } 
+        .logo-item img { max-width: 80px; }
       }
     }
-    .hero-image-box { height: 260px; .geometric-dots { display: none; } }
+
+    .hero-image-box {
+      height: 240px;
+      .geometric-dots { display: none; }
+    }
   }
 
-  .about-section .left-side .about-text-card { padding: 45px 20px; }
-  
+  .services-section { padding: 55px 0; }
+  .service-card { padding: 22px; }
+  .team-section { padding: 55px 0; }
+  .insights-section { padding: 55px 0; }
+
+  .about-section .left-side .about-text-card {
+    padding: 45px 20px;
+    h2 { font-size: 1.6rem; }
+  }
+
   .insights-section .section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
     margin-bottom: 30px;
   }
-
-  .cta-banner {
-    padding: 50px 0;
-    .cta-box { h2 { font-size: 1.7rem; } p { font-size: 0.95rem; } }
-  }
 }
 
 // ==========================================
-// 11. ANIMATIONS
+// 10. ANIMATIONS
 // ==========================================
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(40px); 
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);    
+    transform: translateY(0);
   }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.75); }
 }

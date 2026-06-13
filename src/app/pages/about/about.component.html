@@ -1,1 +1,147 @@
-<p>about works!</p>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <nav class="breadcrumb">
+      <a routerLink="/">Beranda</a>
+      <span class="sep">/</span>
+      <span class="current">Tentang Kami</span>
+    </nav>
+    <h1>Mengenal IJF Fintax</h1>
+    <p class="hero-subtitle">Firma konsultan pajak dan akuntansi terpercaya yang berdiri sejak 2016, melayani ratusan perusahaan dan UMKM di Indonesia.</p>
+  </div>
+</section>
+
+<!-- STORY SECTION -->
+<section class="story-section" appFadeIn>
+  <div class="container story-grid">
+    <div class="story-image">
+      <img src="assets/building.jpg" alt="Kantor IJF Fintax">
+      <div class="story-badge">
+        <span class="badge-number">10+</span>
+        <span class="badge-label">Tahun Pengalaman</span>
+      </div>
+    </div>
+    <div class="story-content">
+      <span class="section-tag">KISAH KAMI</span>
+      <h2>Dibangun di Atas Kepercayaan, Tumbuh Bersama Klien</h2>
+      <p>Ignatius Julyani Fintax (IJF Fintax) didirikan pada tahun 2016 oleh Ignatius Julyani dengan visi sederhana namun kuat: menjadi mitra strategis terpercaya bagi perusahaan Indonesia dalam mengelola perpajakan dan keuangan secara profesional.</p>
+      <p>Bermula dari layanan Tax Advisory, kini IJF Fintax telah berkembang menjadi firma konsultan full-service yang melayani lebih dari 300 klien aktif dari berbagai sektor industri — mulai dari UMKM lokal hingga perusahaan multinasional.</p>
+      <div class="story-stats">
+        <div class="stat-item">
+          <strong [appCountUp]="'300+'">0</strong>
+          <span>Klien Aktif</span>
+        </div>
+        <div class="stat-item">
+          <strong [appCountUp]="'10+'">0</strong>
+          <span>Tahun Berpengalaman</span>
+        </div>
+        <div class="stat-item">
+          <strong [appCountUp]="'98%'">0</strong>
+          <span>Client Retention</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION & VISION -->
+<section class="mv-section" appFadeIn>
+  <div class="container">
+    <div class="mv-grid">
+      <div class="mv-card mission">
+        <div class="mv-icon"><mat-icon>flag</mat-icon></div>
+        <h3>Misi Kami</h3>
+        <p>Memberikan solusi perpajakan dan akuntansi yang akurat, transparan, dan bernilai tinggi — mendukung pertumbuhan bisnis klien secara berkelanjutan dan bertanggung jawab.</p>
+      </div>
+      <div class="mv-card vision">
+        <div class="mv-icon"><mat-icon>visibility</mat-icon></div>
+        <h3>Visi Kami</h3>
+        <p>Menjadi firma konsultan pajak dan akuntansi terpercaya pilihan utama perusahaan dan UMKM di Indonesia, dikenal karena integritas, kompetensi, dan dampak positif bagi klien.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="values-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">NILAI KAMI</span>
+      <h2>Prinsip yang Memandu Setiap Langkah Kami</h2>
+    </div>
+    <div class="values-grid">
+      @for (val of values; track val.title; let i = $index) {
+        <div class="value-card" appFadeIn [style.transition-delay]="(i * 0.08) + 's'">
+          <div class="val-icon"><mat-icon>{{ val.icon }}</mat-icon></div>
+          <h3>{{ val.title }}</h3>
+          <p>{{ val.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE / MILESTONES -->
+<section class="timeline-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">PERJALANAN KAMI</span>
+      <h2>Milestone yang Membanggakan</h2>
+    </div>
+    <div class="timeline">
+      @for (item of milestones; track item.year; let i = $index) {
+        <div class="timeline-item" [class.right]="i % 2 !== 0" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <span class="timeline-year">{{ item.year }}</span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.desc }}</p>
+          </div>
+        </div>
+      }
+      <div class="timeline-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM SECTION -->
+<section class="team-section" appFadeIn>
+  <div class="container">
+    <div class="text-center section-header">
+      <span class="section-tag">TIM PROFESIONAL KAMI</span>
+      <h2>Orang-orang Terbaik di Balik Layanan Kami</h2>
+    </div>
+    <div class="team-grid">
+      @for (member of team; track member.name; let i = $index) {
+        <div class="team-card" appFadeIn [style.transition-delay]="(i * 0.08) + 's'">
+          <div class="member-img-box">
+            <img [src]="member.img" [alt]="member.name">
+          </div>
+          <div class="team-info">
+            <h3>{{ member.name }}</h3>
+            <p class="role">{{ member.role }}</p>
+            <div class="tags">
+              @for (tag of member.tags; track tag) {
+                <span class="tag-badge">{{ tag }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta" appFadeIn>
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Siap Bekerja Sama dengan Kami?</h2>
+      <p>Hubungi tim kami untuk konsultasi awal secara gratis dan tanpa kewajiban.</p>
+      <div class="cta-actions">
+        <a routerLink="/contact" class="btn btn-accent">Jadwalkan Konsultasi &rarr;</a>
+        <a routerLink="/services" class="btn btn-ghost">Lihat Layanan Kami</a>
+      </div>
+    </div>
+  </div>
+</section>
