@@ -662,7 +662,14 @@ h2 {
 
     .header-text-center {
       text-align: center;
-      h2 { margin-bottom: 0; }
+
+      .section-tag { margin-bottom: 16px; }
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 1.35;
+      }
     }
 
     .team-nav-buttons {
@@ -823,6 +830,13 @@ h2 {
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 40px;
+
+    .section-tag { margin-bottom: 16px; }
+
+    h2 {
+      margin-top: 0;
+      line-height: 1.35;
+    }
   }
 
   .link-all {
@@ -1015,12 +1029,19 @@ h2 {
 
   .about-section {
     .about-master-grid { grid-template-columns: 1fr; }
+
     .about-block { grid-template-columns: 1fr; }
+
+    .left-side {
+      .about-text-card { padding: 50px 30px; }
+      .about-image-box.building-img { min-height: 260px; }
+    }
+
     .right-side {
       grid-template-columns: 1fr;
-      .why-choose-us { padding: 40px 20px; }
+      .why-choose-us { grid-column: auto; padding: 40px 30px; }
+      .about-image-box.team-img { grid-column: auto; height: 260px; min-height: unset; }
     }
-    .about-image-box.team-img { height: 300px; min-height: unset; }
   }
 
   .team-section .team-header-container {
@@ -1066,9 +1087,19 @@ h2 {
   .team-section { padding: 55px 0; }
   .insights-section { padding: 55px 0; }
 
-  .about-section .left-side .about-text-card {
-    padding: 45px 20px;
-    h2 { font-size: 1.6rem; }
+  .about-section {
+    .left-side {
+      .about-text-card {
+        padding: 40px 20px;
+        h2 { font-size: 1.5rem; }
+      }
+      .about-image-box.building-img { min-height: 200px; }
+    }
+
+    .right-side {
+      .why-choose-us { padding: 32px 20px; }
+      .about-image-box.team-img { height: 200px; }
+    }
   }
 
   .insights-section .section-header {

@@ -90,6 +90,13 @@
               Kirim Pesan &rarr;
             }
           </button>
+
+          @if (submitError()) {
+            <div class="error-banner">
+              <mat-icon>error_outline</mat-icon>
+              <span>{{ submitError() }}</span>
+            </div>
+          }
         </form>
       } @else {
         <div class="success-state">

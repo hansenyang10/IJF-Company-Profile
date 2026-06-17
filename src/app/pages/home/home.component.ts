@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, OnDestroy, signal, computed, HostListener } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, signal, computed, HostListener, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../shared/services/seo.services';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
@@ -14,6 +15,7 @@ import { FadeInDirective } from '../../shared/directives/fade-in.directive';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private seo = inject(SeoService);
+  private platformId = inject(PLATFORM_ID);
 
   // ==========================================
   // 1. DATA SECTION (STATIC & SIGNALS)
@@ -46,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   readonly insights = signal([
     { title: 'Perubahan Tarif Pajak 2026, Apa yang Perlu Anda Ketahui?', tag: 'Perpajakan', date: '20 Mei 2026', img: 'assets/insights/news1.jpg' },
     { title: '5 Kesalahan SPT yang Sering Dilakukan Wajib Pajak', tag: 'Tax Tips', date: '15 Mei 2026', img: 'assets/insights/news2.jpg' },
-    { title: 'Perubahan Tarif Pajak 2026, Apa yang Perlu Anda Ketahui?', tag: 'Perpajakan', date: '20 Mei 2026', img: 'assets/insights/news1.jpg' },
+    { title: 'Panduan Pembukuan Benar untuk UMKM', tag: 'Akuntansi', date: '5 Mei 2026', img: 'assets/insights/news3.jpg' },
     { title: 'Update PMK Terbaru Terkait PPh dan Faktur Pajak', tag: 'Regulasi', date: '10 Mei 2026', img: 'assets/insights/news3.jpg' }
   ]);
 
@@ -54,7 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       logos: [
         { name: 'Sinarmas', src: 'assets/logos/sinarmas.png' },
-        { name: 'Unilever', src: 'assets/logos/shopee.png' },
+        { name: 'Shopee', src: 'assets/logos/shopee.png' },
         { name: 'Delloite', src: 'assets/logos/delloite.png' },
         { name: 'Astra', src: 'assets/logos/astra.png' },
       ]
@@ -108,11 +110,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   // ==========================================
   ngOnInit() {
     this.seo.generateTags({
-      description: 'Firma konsultan pajak dan akuntansi tepercaya untuk pertumbuhan bisnis Anda.',
-      keywords: 'konsultan pajak, accounting jkt, tax compliance, laporan keuangan',
+      title: 'Konsultan Pajak & Akuntansi Terpercaya Jakarta',
+      description: 'Ignatius Julyani Fintax — firma konsultan pajak dan akuntansi terpercaya di Jakarta sejak 2016. Solusi Tax Advisory, Tax Compliance, Accounting, Payroll, dan CFO Advisory.',
+      keywords: 'konsultan pajak jakarta, tax advisory, tax compliance, accounting, laporan keuangan, IJF fintax',
       slug: ''
     });
-    this.startAutoPlay();
+    if (isPlatformBrowser(this.platformId)) {
+      this.startAutoPlay();
+    }
   }
 
   ngOnDestroy() {

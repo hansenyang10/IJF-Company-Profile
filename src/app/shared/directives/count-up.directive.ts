@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, OnInit, OnDestroy, inject } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, OnDestroy, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[appCountUp]',
@@ -6,53 +7,51 @@ import { Directive, ElementRef, Input, OnInit, OnDestroy, inject } from '@angula
 })
 export class CountUpDirective implements OnInit, OnDestroy {
   private el = inject(ElementRef);
-  
-  @Input('appCountUp') targetValue!: string | number;
-  @Input() duration = 1500; // Durasi animasi dalam milidetik (1.8 detik)
+  private platformId = inject(PLATFORM_ID);
 
-  private observer!: IntersectionObserver;
+  @Input('appCountUp') targetValue!: string | number;
+  @Input() duration = 1500;
+
+  private observer?: IntersectionObserver;
 
   ngOnInit() {
-    // 1. Deteksi saat elemen masuk ke viewport
+    if (!isPlatformBrowser(this.platformId)) return;
+
     this.observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         this.startCounting();
-        this.observer.disconnect(); // Matikan observer agar animasi hanya jalan sekali saat di-scroll
+        this.observer?.disconnect();
       }
-    }, { threshold: 0.1 }); // Trigger berjalan ketika 10% elemen sudah terlihat di layar
+    }, { threshold: 0.1 });
 
     this.observer.observe(this.el.nativeElement);
   }
 
   private startCounting() {
     const stringValue = String(this.targetValue);
-    // Regex untuk memisahkan angka dengan simbol (misal: "10+" -> "10" dan "+", "98%" -> "98" dan "%")
     const match = stringValue.match(/(\d+)/);
-    
+
     if (!match) {
       this.el.nativeElement.innerText = stringValue;
       return;
     }
 
     const targetNumber = parseInt(match[0], 10);
-    const suffix = stringValue.replace(match[0], ''); // Mengambil sisa simbol (+ atau %)
+    const suffix = stringValue.replace(match[0], '');
     const startTime = performance.now();
 
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / this.duration, 1);
-      
-      // Easing function (OutQuad): Animasi cepat di awal, lalu melambat halus di akhir
       const easeProgress = progress * (2 - progress);
       const currentValue = Math.floor(easeProgress * targetNumber);
-      
-      // Update teks langsung ke DOM untuk performa terbaik
+
       this.el.nativeElement.innerText = `${currentValue}${suffix}`;
 
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        this.el.nativeElement.innerText = stringValue; // Memastikan hasil akhir presisi
+        this.el.nativeElement.innerText = stringValue;
       }
     };
 
@@ -60,8 +59,6 @@ export class CountUpDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+    this.observer?.disconnect();
   }
 }

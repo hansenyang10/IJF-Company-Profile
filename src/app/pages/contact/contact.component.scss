@@ -164,6 +164,22 @@ h2 { font-size: 2rem; color: $primary-blue; margin-top: 0; margin-bottom: 10px; 
 
     .spin { animation: spin 1s linear infinite; }
   }
+
+  .error-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 8px;
+    color: $error;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    mat-icon { font-size: 20px; width: 20px; height: 20px; flex-shrink: 0; }
+  }
 }
 
 // SUCCESS STATE

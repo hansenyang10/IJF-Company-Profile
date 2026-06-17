@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { FadeInDirective } from '../../shared/directives/fade-in.directive';
 import { SeoService } from '../../shared/services/seo.services';
+import { EmailService } from '../../shared/services/email.service';
 
 @Component({
   selector: 'app-contact',
@@ -15,6 +16,7 @@ import { SeoService } from '../../shared/services/seo.services';
 export class ContactComponent implements OnInit {
   private seo = inject(SeoService);
   private fb = inject(FormBuilder);
+  private emailService = inject(EmailService);
 
   readonly contactInfo = [
     { icon: 'phone', label: 'Telepon', value: '+62 812-3456-7890', hint: 'Senin – Jumat, 09.00 – 17.00 WIB', href: 'tel:+628123456789' },
@@ -43,6 +45,7 @@ export class ContactComponent implements OnInit {
 
   isSubmitting = signal(false);
   submitted = signal(false);
+  submitError = signal<string | null>(null);
 
   field(name: string) {
     return this.form.get(name)!;
@@ -58,12 +61,29 @@ export class ContactComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
+
     this.isSubmitting.set(true);
-    // Simulate async submission — replace with real HTTP call
-    setTimeout(() => {
-      this.isSubmitting.set(false);
-      this.submitted.set(true);
-    }, 1600);
+    this.submitError.set(null);
+
+    const v = this.form.value;
+    this.emailService.send({
+      name: v.name!,
+      company: v.company ?? '',
+      email: v.email!,
+      phone: v.phone ?? '',
+      service: v.service ?? '',
+      message: v.message!,
+    }).subscribe({
+      next: () => {
+        this.isSubmitting.set(false);
+        this.submitted.set(true);
+        this.form.reset();
+      },
+      error: () => {
+        this.isSubmitting.set(false);
+        this.submitError.set('Pesan gagal terkirim. Silakan coba lagi atau hubungi kami via WhatsApp.');
+      },
+    });
   }
 
   ngOnInit() {

@@ -229,7 +229,7 @@
       <a routerLink="/insights" class="link-all">Lihat Semua Insight &rarr;</a>
     </div>
     <div class="insights-grid">
-      @for (blog of insights(); track blog.title; let i = $index) {
+      @for (blog of insights(); track $index; let i = $index) {
         <article class="blog-card" appFadeIn [style.transition-delay]="(i * 0.1) + 's'">
           <div class="blog-img-box">
             <img [src]="blog.img" [alt]="blog.title">
